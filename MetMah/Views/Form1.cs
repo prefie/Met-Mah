@@ -60,8 +60,7 @@ TTTTTTTTTTT";
                 32 * gameState.WidthCurrentLevel,
                 32 * gameState.HeightCurrentLevel + 32);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            if (imagesDirectory == null)
-                imagesDirectory = new DirectoryInfo("Images");
+            imagesDirectory = new DirectoryInfo("Images");
             foreach (var e in imagesDirectory.GetFiles("*.png"))
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
             var timer = new Timer();
@@ -175,7 +174,7 @@ TTTTTTTTTTT";
 
                         }
                         previous = e.Creature;
-                    }    
+                    }
                     e.Location = new Point(e.Location.X + 4 * e.Command.DeltaX, e.Location.Y + 4 * e.Command.DeltaY);
                 }
             if (tickCount == 7)

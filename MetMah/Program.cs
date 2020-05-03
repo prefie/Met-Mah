@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetMah.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,7 +15,8 @@ namespace EscapeFromMetMah
         [STAThread]
         static void Main()
         {
-            Application.Run(new Form1(new System.IO.DirectoryInfo(@"C:\Users\Asus\Desktop\Images")));
+            Application.Run(new MainForm());
+            //Application.Run(new Form1(new System.IO.DirectoryInfo(@"C:\Users\Asus\Desktop\Images")));
         }
     }
 }
