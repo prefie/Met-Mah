@@ -46,6 +46,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Additionally\Bfs.cs" />
+    <Compile Include="Additionally\CreatureAction.cs" />
+    <Compile Include="Additionally\Dialogue.cs" />
+    <Compile Include="Additionally\GameStage.cs" />
+    <Compile Include="Additionally\Level.cs" />
+    <Compile Include="Additionally\MapCreator.cs" />
+    <Compile Include="Additionally\Move.cs" />
+    <Compile Include="Additionally\SinglyLinkedList.cs" />
+    <Compile Include="Additionally\Status.cs" />
+    <Compile Include="Creature\Beer.cs" />
+    <Compile Include="Creature\CleverStudent.cs" />
+    <Compile Include="Creature\ICreature.cs" />
+    <Compile Include="Creature\Player.cs" />
+    <Compile Include="Creature\Python.cs" />
+    <Compile Include="Creature\Stairs.cs" />
+    <Compile Include="Creature\Student.cs" />
+    <Compile Include="Creature\Terrain.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -78,8 +95,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Additionally\" />
-    <Folder Include="Creature\" />
     <Folder Include="Views\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

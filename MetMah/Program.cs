@@ -4,19 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace MetMah
+namespace EscapeFromMetMah
 {
     static class Program
     {
         /// <summary>
-        /// Главная точка входа для приложения.
+        ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Form1(new System.IO.DirectoryInfo(@"C:\Users\Asus\Desktop\Images")));
         }
     }
 }

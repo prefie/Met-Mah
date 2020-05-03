@@ -1,4 +1,4 @@
-﻿namespace MetMah
+﻿namespace EscapeFromMetMah
 {
     partial class Form1
     {
