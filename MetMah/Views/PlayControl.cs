@@ -60,7 +60,7 @@ namespace MetMah.Views
             Invalidate();
         }
 
-        private void newPreviewKeyDown(Object sender, PreviewKeyDownEventArgs e)
+        private void newPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (e.KeyCode == Keys.Left ||
                 e.KeyCode == Keys.Right ||
@@ -89,6 +89,7 @@ namespace MetMah.Views
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            e.Graphics.DrawImage(bitmaps["Kamen.png"], 0, 0);
             e.Graphics.TranslateTransform(0, 32);
             // 
             var actions = game.Actions.OrderBy(x => GetPriority(x.Creature)).ToList();
@@ -98,14 +99,6 @@ namespace MetMah.Views
             e.Graphics.ResetTransform();
             e.Graphics.DrawString(game.PatienceScale.ToString(), new Font("Arial", 16), Brushes.Green, 0, 0);
             progressBar.Value = game.HeightCurrentLevel * game.WidthCurrentLevel * 2 - game.PatienceScale;
-        }
-
-        private Point? FindPlayer()
-        {
-            foreach (var e in game.Actions)
-                if (e.Creature is Player)
-                    return e.Location;
-            return null;
         }
 
         private static string GetImageFileName(ICreature creature, int DeltaX)
