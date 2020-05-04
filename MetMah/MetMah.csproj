@@ -63,6 +63,12 @@
     <Compile Include="Creature\Stairs.cs" />
     <Compile Include="Creature\Student.cs" />
     <Compile Include="Creature\Terrain.cs" />
+    <Compile Include="Views\DialogueControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\DialogueControl.Designer.cs">
+      <DependentUpon>DialogueControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\FinishedControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -88,14 +94,8 @@
     <Compile Include="Views\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Views\PlayControl.cs">
       <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Views\PlayControl.Designer.cs">
-      <DependentUpon>PlayControl.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

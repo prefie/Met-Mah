@@ -1,6 +1,6 @@
 ﻿namespace MetMah.Views
 {
-    partial class PlayControl
+    partial class DialogueControl
     {
         /// <summary> 
         /// Обязательная переменная конструктора.
@@ -28,29 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.SuspendLayout();
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.Location = new System.Drawing.Point(4, 4);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(150, 30);
-            this.progressBar1.TabIndex = 0;
-            // 
-            // PlayControl
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            components = new System.ComponentModel.Container();
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.progressBar1);
-            this.Name = "PlayControl";
-            this.Size = new System.Drawing.Size(609, 390);
-            this.ResumeLayout(false);
-
         }
 
         #endregion
-
-        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

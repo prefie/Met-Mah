@@ -37,14 +37,21 @@ namespace MetMah
 
             var levels = new List<Level>();
             string str = @"
-           TTTTT  SB   TT
-P             L LTTTTTLTT
-TTTLTTTTL  TTTLTT     L  
-   L S  LLB   L       L  
-TTTTTTTTLTTTTTTTTTTTTLL  
-        L            TTTT
-        L S       C    B 
- B   LTTTTTTTTTTTTTTTTTTT";
+           TTTTT  SB  CTTTTTTT
+P             L LTTTTTLTTTTTTT
+TTTLTTTTL  TTTLTT     L  TTTTT
+   L S  LLB   L     C L  TTTTT
+TTTTTTTTLTTTTTTTTTTTTLL  TTTTT
+        L            TTTTTTTTT
+      C L S       C    B TTTTT
+ B   LTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT";
             var str1 = @"
 P     S      B   
 TTTTTTTTTTTTTTTTT";
@@ -120,6 +127,8 @@ TTTTTTTTTTTTTTTTT";
                     return;
                 if (CurrentDialogue.IsCorrectAnswer(index))
                     CurrentDialogue = null;
+                else
+                    PatienceScale -= 5;
                 return;
             }
             var creaturesPerLocation = GetCandidatesPerLocation();
