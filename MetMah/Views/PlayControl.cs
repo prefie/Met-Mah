@@ -21,6 +21,7 @@ namespace MetMah.Views
         private int tickCount;
         private ProgressBar progressBar;
         private Timer timer;
+        private List<CreatureAction> animations;
 
         public PlayControl(GameState game, HashSet<Keys> pressedKeys)
         {
@@ -34,7 +35,7 @@ namespace MetMah.Views
             ClientSizeChanged += HandleResize;
             PreviewKeyDown += newPreviewKeyDown;
 
-            BackgroundImage = Image.FromFile(@"Images\phon.png");
+            BackgroundImage = Image.FromFile(@"Images\LightBackground.png");
             var imagesDirectory = new DirectoryInfo("Images");
             foreach (var e in imagesDirectory.GetFiles("*.png"))
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
@@ -44,7 +45,7 @@ namespace MetMah.Views
                 32 * game.HeightCurrentLevel + 32);
 
             timer = new Timer();
-            timer.Interval = 17;
+            timer.Interval = 20;
             timer.Tick += TimerTick;
             timer.Tick += (sender, args) =>
             {
@@ -52,7 +53,6 @@ namespace MetMah.Views
             };
 
             progressBar.Maximum = game.WidthCurrentLevel * game.HeightCurrentLevel * 2 + 21;
-            BackgroundImage = Image.FromFile(@"Images\phon2.png");
 
         }
 
@@ -180,7 +180,7 @@ namespace MetMah.Views
         {
             if (tickCount == 0)
             {
-                game.BeginAct();
+                Parallel.Invoke(() => game.BeginAct());
                 // Стартовые размеры на формочке
                 if (game.CurrentDialogue is null)
                     foreach (var e in game.Actions)

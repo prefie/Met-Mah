@@ -46,8 +46,6 @@ namespace MetMah.Views
             table.Controls.Add(dialogueControl, 1, 1);
             table.Controls.Add(finishedControl, 1, 1);
             table.Dock = DockStyle.Fill;
-            table.Location = new Point(0, 0);
-            table.Size = new Size(780, 450);
 
             Controls.Add(table);
             ShowStartScreen();

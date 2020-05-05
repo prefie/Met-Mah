@@ -33,7 +33,7 @@ namespace MetMah.Views
             buttonPlay.BackColor = Color.LightGray;
             buttonExit.Size = new Size(200, 35);
             buttonExit.BackColor = Color.LightGray;
-            BackgroundImage = Image.FromFile(@"Images\phon5.png");
+            BackgroundImage = Image.FromFile(@"Images\Background.png");
             buttonPlay.Location = new Point((Size.Width - buttonPlay.Size.Width) / 2, (Size.Height - buttonPlay.Size.Height) / 2);
             buttonExit.Location = new Point(buttonPlay.Location.X, buttonPlay.Location.Y + 40);
             buttonPlay.Text = "Играть";
