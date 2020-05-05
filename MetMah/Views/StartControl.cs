@@ -16,16 +16,12 @@ namespace MetMah.Views
         private Button buttonPlay;
         private Button buttonExit;
 
-        public StartControl()
-        {
-        }
-
         public void Configure(GameState game)
         {
             this.game = game;
             ClientSize = new Size(
-                32 * game.WidthCurrentLevel,
-                32 * game.HeightCurrentLevel + 32);
+                32 * 28,
+                32 * 13 + 32);
 
             buttonPlay = new Button();
             buttonExit = new Button();
@@ -34,7 +30,7 @@ namespace MetMah.Views
             buttonExit.Size = new Size(200, 35);
             buttonExit.BackColor = Color.LightGray;
             BackgroundImage = Image.FromFile(@"Images\Background.png");
-            buttonPlay.Location = new Point((Size.Width - buttonPlay.Size.Width) / 2, (Size.Height - buttonPlay.Size.Height) / 2);
+            buttonPlay.Location = new Point((ClientSize.Width - buttonPlay.Size.Width) / 2, (ClientSize.Height - buttonPlay.Size.Height) / 2);
             buttonExit.Location = new Point(buttonPlay.Location.X, buttonPlay.Location.Y + 40);
             buttonPlay.Text = "Играть";
             buttonExit.Text = "Выйти";
@@ -52,6 +48,16 @@ namespace MetMah.Views
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
     }
 }

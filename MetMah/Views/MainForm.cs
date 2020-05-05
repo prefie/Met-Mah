@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace MetMah.Views
@@ -42,9 +43,9 @@ namespace MetMah.Views
             table.RowStyles.Add(new RowStyle(SizeType.Absolute, game.HeightCurrentLevel * 32 + 32));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             table.Controls.Add(playControl, 1, 0);
+            table.Controls.Add(finishedControl, 1, 0);
             table.Controls.Add(startControl, 1, 0);
             table.Controls.Add(dialogueControl, 1, 1);
-            table.Controls.Add(finishedControl, 1, 1);
             table.Dock = DockStyle.Fill;
 
             Controls.Add(table);
@@ -111,7 +112,7 @@ namespace MetMah.Views
         private void ShowFinishedScreen()
         {
             HideScreens();
-            finishedControl.Configure(game.WidthCurrentLevel, game.HeightCurrentLevel);
+            finishedControl.Configure(game);
             finishedControl.Show();
         }
 

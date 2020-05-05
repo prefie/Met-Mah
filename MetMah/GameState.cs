@@ -12,8 +12,8 @@ namespace MetMah
     {
         public Level CurrentLevel { get; private set; }
         public int IndexCurrentLevel { get; private set; }
-        private readonly List<Level> Levels;
-        public List<CreatureAction> Actions { get; }
+        private List<Level> Levels;
+        public List<CreatureAction> Actions { get; private set; }
         public bool IsGameOver { get; private set; }
         public Dialogue CurrentDialogue { get; private set; }
         public bool IsDialogueActivated => CurrentDialogue != null;
@@ -35,34 +35,7 @@ namespace MetMah
 
         public GameState()
         {
-            Stage = GameStage.NotStarted;
-            var levels = new List<Level>();
-            string str = @"
-           TTTTT  SB  CTTTTT
- CPC          L LTTTTTLTTTTT
-TTTLTTTTL  TTTLTT     L  TTT
-   L S  LLB   L       L  TTT
-TTTTTTTTLTTTTTTTTTTTTLL  TTT
-        L            TTTTTTT
-      S L S       C    B TTT
- B   LTTTTTTTTTTTTTTTTTTTTTT
-TTTLTT             C        
-   LTTTTTTTTTTTTTTTTTTTTTTTT
-   L                        
-             C         BBB  
-TTTTTTTTTTTTTTTTTTTTTTTTTTTT";
-            var str1 = @"
-P     S      B   
-TTTTTTTTTTTTTTTTT";
-            var level = new Level(str);
-            var level1 = new Level(str1);
-            levels.Add(level);
-            levels.Add(level1);
-            Levels = levels;
-
-            CurrentLevel = Levels[0];
-            Actions = new List<CreatureAction>();
-            PatienceScale = CurrentLevel.Height * CurrentLevel.Width * 2;
+            Initialize();
         }
 
         public void Start()
@@ -153,6 +126,9 @@ TTTTTTTTTTTTTTTTT";
                     ChangeStage(GameStage.Finished);
                 }
             }
+
+            if (PatienceScale < 0)
+                PatienceScale = 0;
         }
 
         private List<ICreature> SelectWinnerCandidatePerLocation(List<ICreature>[,] creatures, int x, int y)
@@ -207,6 +183,41 @@ TTTTTTTTTTTTTTTTT";
         {
             this.Stage = stage;
             StageChanged?.Invoke(stage);
+        }
+
+        public void Initialize()
+        {
+
+            ChangeStage(GameStage.NotStarted);
+            var levels = new List<Level>();
+            string str = @"
+           TTTTT  SB  CTTTTT
+ CPC          L LTTTTTLTTTTT
+TTTLTTTTL  TTTLTT     L  TTT
+   L S  LLB   L       L  TTT
+TTTTTTTTLTTTTTTTTTTTTLL  TTT
+        L            TTTTTTT
+      S L S       C    B TTT
+ B   LTTTTTTTTTTTTTTTTTTTTTT
+TTTLTT             C        
+   LTTTTTTTTTTTTTTTTTTTTTTTT
+   L                        
+             C         BBB  
+TTTTTTTTTTTTTTTTTTTTTTTTTTTT";
+            var str1 = @"
+P     S      B   
+TTTTTTTTTTTTTTTTT";
+            var level = new Level(str);
+            var level1 = new Level(str1);
+            levels.Add(level);
+            levels.Add(level1);
+            Levels = levels;
+
+            CurrentLevel = Levels[0];
+            Actions = new List<CreatureAction>();
+            IsGameOver = false;
+            CurrentDialogue = null;
+            PatienceScale = CurrentLevel.Height * CurrentLevel.Width * 2;
         }
     }
 }

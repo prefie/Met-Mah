@@ -21,7 +21,6 @@ namespace MetMah.Views
         private int tickCount;
         private ProgressBar progressBar;
         private Timer timer;
-        private List<CreatureAction> animations;
 
         public PlayControl(GameState game, HashSet<Keys> pressedKeys)
         {
@@ -51,9 +50,6 @@ namespace MetMah.Views
             {
                 if (game.IsGameOver) timer.Stop();
             };
-
-            progressBar.Maximum = game.WidthCurrentLevel * game.HeightCurrentLevel * 2 + 21;
-
         }
 
         public void Configure()
@@ -89,7 +85,7 @@ namespace MetMah.Views
         protected override void OnKeyUp(KeyEventArgs e)
         {
             pressedKeys.Remove(e.KeyCode);
-            game.SetKeyPressed(pressedKeys.Any() ? pressedKeys.Min() : Keys.None);
+            game.SetKeyPressed(pressedKeys.Any() ? pressedKeys.First() : Keys.None);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -102,9 +98,11 @@ namespace MetMah.Views
             foreach (var a in actions)
                 e.Graphics.DrawImage(bitmaps[GetImageFileName(a.Creature, a.Command.DeltaX)], a.Location);
             e.Graphics.ResetTransform();
-            e.Graphics.DrawString(game.PatienceScale.ToString(), new Font("Arial", 16), Brushes.Green, 0, 0);
-            e.Graphics.DrawString("Шкала терпения:", new Font("Arial", 12), Brushes.Green, 65, 6);
-            progressBar.Value = game.HeightCurrentLevel * game.WidthCurrentLevel * 2 - game.PatienceScale;
+            var scale = game.PatienceScale > 0 ? game.PatienceScale.ToString() : "0";
+            e.Graphics.DrawString(scale, new Font("Arial", 16), Brushes.Green, 150, 4);
+            e.Graphics.DrawString("Шкала терпения:", new Font("Arial", 12), Brushes.Green, 20, 6);
+            progressBar.Value = game.PatienceScale > 0 ?
+                game.HeightCurrentLevel * game.WidthCurrentLevel * 2 - game.PatienceScale : 0;
 
             if (game.Stage == GameStage.ActivatedDialogue)
             {
@@ -178,6 +176,7 @@ namespace MetMah.Views
 
         private void TimerTick(object sender, EventArgs args)
         {
+            progressBar.Maximum = game.WidthCurrentLevel * game.HeightCurrentLevel * 2 + 1;
             if (tickCount == 0)
             {
                 Parallel.Invoke(() => game.BeginAct());
@@ -194,6 +193,16 @@ namespace MetMah.Views
             tickCount++;
             if (tickCount == 8) tickCount = 0;
             Invalidate();
+        }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
         }
     }
 }

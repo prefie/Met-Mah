@@ -74,5 +74,15 @@ namespace MetMah.Views
             pressedKeys.Remove(e.KeyCode);
             game.SetKeyPressed(pressedKeys.Any() ? pressedKeys.Min() : Keys.None);
         }
+
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x02000000;
+                return cp;
+            }
+        }
     }
 }
