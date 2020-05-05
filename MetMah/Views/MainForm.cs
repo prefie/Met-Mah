@@ -1,37 +1,28 @@
 ﻿using MetMah.Additionally;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace MetMah.Views
 {
     public partial class MainForm : Form
     {
-        private GameState game;
-        private TableLayoutPanel table;
-        private PlayControl playControl;
-        private StartControl startControl;
-        private FinishedControl finishedControl;
+        private readonly GameState game;
+        private readonly TableLayoutPanel table;
+        private readonly PlayControl playControl;
+        private readonly StartControl startControl;
+        private readonly FinishedControl finishedControl;
         private DialogueControl dialogueControl;
-        private readonly HashSet<Keys> pressedKeys = new HashSet<Keys>();
         
 
         public MainForm()
         {
             game = new GameState();
             game.StageChanged += Game_OnStageChanged;
-            ClientSizeChanged += HandleResize;
 
             table = new TableLayoutPanel();
             startControl = new StartControl();
-            playControl = new PlayControl(game, pressedKeys);
+            playControl = new PlayControl(game);
             finishedControl = new FinishedControl();
             dialogueControl = new DialogueControl();
 
@@ -42,19 +33,14 @@ namespace MetMah.Views
             table.RowCount = 2;
             table.RowStyles.Add(new RowStyle(SizeType.Absolute, game.HeightCurrentLevel * 32 + 32));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            table.Controls.Add(startControl, 1, 0);
             table.Controls.Add(playControl, 1, 0);
             table.Controls.Add(finishedControl, 1, 0);
-            table.Controls.Add(startControl, 1, 0);
             table.Controls.Add(dialogueControl, 1, 1);
             table.Dock = DockStyle.Fill;
 
             Controls.Add(table);
             ShowStartScreen();
-        }
-
-        private void HandleResize(object sender, EventArgs e)
-        {
-            Invalidate();
         }
 
         protected override void OnLoad(EventArgs e)
@@ -105,7 +91,7 @@ namespace MetMah.Views
             dialogueControl = new DialogueControl();
             table.Controls.Add(dialogueControl, 1, 1);
             dialogueControl.Focus();
-            dialogueControl.Configure(game, pressedKeys);
+            dialogueControl.Configure(game);
             dialogueControl.Show();
         }
 
