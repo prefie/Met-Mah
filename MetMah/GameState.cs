@@ -20,12 +20,13 @@ namespace MetMah
         public int PatienceScale { get; private set; }
         public int WidthCurrentLevel => CurrentLevel.Width;
         public int HeightCurrentLevel => CurrentLevel.Height;
-        public GameStage stage = GameStage.NotStarted;
+        public GameStage Stage { get; private set; }
 
         public event Action<GameStage> StageChanged;
 
         public GameState(IEnumerable<Level> levels)
         {
+            Stage = GameStage.NotStarted;
             Levels = levels.ToList();
             CurrentLevel = Levels[0];
             Actions = new List<CreatureAction>();
@@ -34,24 +35,22 @@ namespace MetMah
 
         public GameState()
         {
-
+            Stage = GameStage.NotStarted;
             var levels = new List<Level>();
             string str = @"
-           TTTTT  SB  CTTTTTTT
-P             L LTTTTTLTTTTTTT
-TTTLTTTTL  TTTLTT     L  TTTTT
-   L S  LLB   L     C L  TTTTT
-TTTTTTTTLTTTTTTTTTTTTLL  TTTTT
-        L            TTTTTTTTT
-      C L S       C    B TTTTT
- B   LTTTTTTTTTTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
-TTTTTTTTTTTTTTTTTTTTTTTTTTTTTT";
+           TTTTT  SB  CTTTTT
+ CPC          L LTTTTTLTTTTT
+TTTLTTTTL  TTTLTT     L  TTT
+   L S  LLB   L       L  TTT
+TTTTTTTTLTTTTTTTTTTTTLL  TTT
+        L            TTTTTTT
+      S L S       C    B TTT
+ B   LTTTTTTTTTTTTTTTTTTTTTT
+TTTLTT             C        
+   LTTTTTTTTTTTTTTTTTTTTTTTT
+   L                        
+             C         BBB  
+TTTTTTTTTTTTTTTTTTTTTTTTTTTT";
             var str1 = @"
 P     S      B   
 TTTTTTTTTTTTTTTTT";
@@ -61,8 +60,6 @@ TTTTTTTTTTTTTTTTT";
             levels.Add(level1);
             Levels = levels;
 
-
-            // Дописать инициализацию уровней игры -> в Start?
             CurrentLevel = Levels[0];
             Actions = new List<CreatureAction>();
             PatienceScale = CurrentLevel.Height * CurrentLevel.Width * 2;
@@ -70,7 +67,6 @@ TTTTTTTTTTTTTTTTT";
 
         public void Start()
         {
-            // Инициализация уровней
             ChangeStage(GameStage.Play);
         }
 
@@ -126,9 +122,16 @@ TTTTTTTTTTTTTTTTT";
                 if (index < 0 || index >= CurrentDialogue.CountAnswers)
                     return;
                 if (CurrentDialogue.IsCorrectAnswer(index))
+                {
+                    ChangeStage(GameStage.Play);
+                    SetKeyPressed(Keys.None);
                     CurrentDialogue = null;
+                }
                 else
-                    PatienceScale -= 5;
+                {
+                    PatienceScale -= 50;
+                    SetKeyPressed(Keys.None);
+                }
                 return;
             }
             var creaturesPerLocation = GetCandidatesPerLocation();
@@ -170,10 +173,16 @@ TTTTTTTTTTTTTTTTT";
                 aliveCandidates.Remove(candidate);
 
             if (candidate is Student && rival is Player)
+            {
                 CurrentDialogue = (candidate as Student).Dialogue;
+                ChangeStage(GameStage.ActivatedDialogue);
+            }
 
             if (candidate is CleverStudent && rival is Player)
+            {
                 CurrentDialogue = (candidate as CleverStudent).Dialogue;
+                ChangeStage(GameStage.ActivatedDialogue);
+            }
         }
 
         private List<ICreature>[,] GetCandidatesPerLocation()
@@ -196,7 +205,7 @@ TTTTTTTTTTTTTTTTT";
 
         private void ChangeStage(GameStage stage)
         {
-            this.stage = stage;
+            this.Stage = stage;
             StageChanged?.Invoke(stage);
         }
     }

@@ -7,9 +7,10 @@ namespace MetMah.Additionally
 {
     public static class MapCreator
     {
+        private static Random random = new Random();
         public static List<ICreature>[,] CreateMap(string map, string separator = "\r\n")
         {
-            var rows = map.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+            var rows = map.Split(new[] { separator, "\n" }, StringSplitOptions.RemoveEmptyEntries);
             if (rows.Select(z => z.Length).Distinct().Count() != 1)
                 throw new Exception($"Wrong map '{map}'");
             var result = new List<ICreature>[rows[0].Length, rows.Length];
@@ -36,12 +37,12 @@ namespace MetMah.Additionally
                     return new Stairs();
                 case 'S':
                     return new Student(new Dialogue("Do you love me?",
-                                                new string[] { "Yes", "No" },
+                                                new string[] { "Yes", "No", "ZOPA" },
                                                 "Yes"));
                 case 'C':
                     return new CleverStudent(new Dialogue("Do you love me?",
-                                                new string[] { "Yes", "No" },
-                                                "Yes"));
+                                                new string[] { "Yes", "No", "Maybe", "I don't know", "Help me", "012345678901234567890" },
+                                                "Maybe"));
                 case 'B':
                     return new Beer();
                 case ' ':

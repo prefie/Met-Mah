@@ -17,42 +17,48 @@ namespace MetMah.Views
     {
         private readonly Dictionary<string, Bitmap> bitmaps = new Dictionary<string, Bitmap>();
         private GameState game;
-        private readonly HashSet<Keys> pressedKeys = new HashSet<Keys>();
+        private readonly HashSet<Keys> pressedKeys;
         private int tickCount;
         private ProgressBar progressBar;
+        private Timer timer;
 
-        public PlayControl()
-        {
-            progressBar = new ProgressBar();
-            progressBar.Location = new Point(150, 4);
-            progressBar.Size = new Size(150, 30);
-            Controls.Add(progressBar);
-        }
-
-        public void Configure(GameState game)
+        public PlayControl(GameState game, HashSet<Keys> pressedKeys)
         {
             this.game = game;
+            this.pressedKeys = pressedKeys;
+            progressBar = new ProgressBar();
+            progressBar.Location = new Point(200, 6);
+            progressBar.Size = new Size(150, 20);
+            progressBar.Style = ProgressBarStyle.Continuous;
+            Controls.Add(progressBar);
             ClientSizeChanged += HandleResize;
             PreviewKeyDown += newPreviewKeyDown;
-            ClientSize = new Size(
-                32 * game.WidthCurrentLevel,
-                32 * game.HeightCurrentLevel + 32);
 
             BackgroundImage = Image.FromFile(@"Images\phon.png");
             var imagesDirectory = new DirectoryInfo("Images");
             foreach (var e in imagesDirectory.GetFiles("*.png"))
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
-            var timer = new Timer();
-            timer.Interval = 20;
+
+            ClientSize = new Size(
+                32 * game.WidthCurrentLevel,
+                32 * game.HeightCurrentLevel + 32);
+
+            timer = new Timer();
+            timer.Interval = 17;
             timer.Tick += TimerTick;
             timer.Tick += (sender, args) =>
             {
                 if (game.IsGameOver) timer.Stop();
             };
-            timer.Start();
-            progressBar.Maximum = this.game.WidthCurrentLevel * this.game.HeightCurrentLevel * 2 + 5;
 
+            progressBar.Maximum = game.WidthCurrentLevel * game.HeightCurrentLevel * 2 + 21;
             BackgroundImage = Image.FromFile(@"Images\phon2.png");
+
+        }
+
+        public void Configure()
+        {
+            timer.Start();
         }
 
         private void HandleResize(object sender, EventArgs e)
@@ -72,7 +78,6 @@ namespace MetMah.Views
         {
             pressedKeys.Add(e.KeyCode);
             game.SetKeyPressed(e.KeyCode);
-
         }
 
         protected override void OnLoad(EventArgs e)
@@ -84,7 +89,7 @@ namespace MetMah.Views
         protected override void OnKeyUp(KeyEventArgs e)
         {
             pressedKeys.Remove(e.KeyCode);
-            game.SetKeyPressed(pressedKeys.Any() ? pressedKeys.First() : Keys.None);
+            game.SetKeyPressed(pressedKeys.Any() ? pressedKeys.Min() : Keys.None);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -98,7 +103,20 @@ namespace MetMah.Views
                 e.Graphics.DrawImage(bitmaps[GetImageFileName(a.Creature, a.Command.DeltaX)], a.Location);
             e.Graphics.ResetTransform();
             e.Graphics.DrawString(game.PatienceScale.ToString(), new Font("Arial", 16), Brushes.Green, 0, 0);
+            e.Graphics.DrawString("Шкала терпения:", new Font("Arial", 12), Brushes.Green, 65, 6);
             progressBar.Value = game.HeightCurrentLevel * game.WidthCurrentLevel * 2 - game.PatienceScale;
+
+            if (game.Stage == GameStage.ActivatedDialogue)
+            {
+                e.Graphics.FillRectangle(
+                Brushes.LightGray, 0, 32, 32 * Size.Width,
+                32 * Size.Height + 32);
+                var str = "Вы наткнулись на студента!";
+                e.Graphics.DrawString(str, new Font("Arial", 48),
+                    Brushes.Green, Size.Width / 2 - str.Length * 16, Size.Height / 2 - 32);
+                e.Graphics.DrawString("Придётся отвечать на его вопрос ↓", new Font("Arial", 24),
+                    Brushes.Green, Size.Width / 2 - str.Length * 16, Size.Height / 2 + 40);
+            }
         }
 
         private static string GetImageFileName(ICreature creature, int DeltaX)
@@ -114,6 +132,8 @@ namespace MetMah.Views
                 return "Beer.png";
             if (creature is Student)
             {
+                if (creature.GetStatus() == Status.Inactive)
+                    return "pepelStudent.png";
                 if (DeltaX == -1)
                     return "Student.Left.png";
                 else
@@ -127,6 +147,8 @@ namespace MetMah.Views
                 return "Snake.png";
             if (creature is CleverStudent)
             {
+                if (creature.GetStatus() == Status.Inactive)
+                    return "PepelCleverStudent.png";
                 if (DeltaX == -1)
                     return "CleverStudentLeft.png";
                 else

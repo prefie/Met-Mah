@@ -16,7 +16,11 @@ namespace MetMah.Views
         private GameState game;
         private TableLayoutPanel table;
         private PlayControl playControl;
+        private StartControl startControl;
         private FinishedControl finishedControl;
+        private DialogueControl dialogueControl;
+        private readonly HashSet<Keys> pressedKeys = new HashSet<Keys>();
+        
 
         public MainForm()
         {
@@ -25,26 +29,28 @@ namespace MetMah.Views
             ClientSizeChanged += HandleResize;
 
             table = new TableLayoutPanel();
-            playControl = new PlayControl();
+            startControl = new StartControl();
+            playControl = new PlayControl(game, pressedKeys);
             finishedControl = new FinishedControl();
+            dialogueControl = new DialogueControl();
 
             table.ColumnCount = 3;
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, game.WidthCurrentLevel * 32));
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             table.RowCount = 2;
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 80F));
+            table.RowStyles.Add(new RowStyle(SizeType.Absolute, game.HeightCurrentLevel * 32 + 32));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             table.Controls.Add(playControl, 1, 0);
+            table.Controls.Add(startControl, 1, 0);
+            table.Controls.Add(dialogueControl, 1, 1);
             table.Controls.Add(finishedControl, 1, 1);
             table.Dock = DockStyle.Fill;
             table.Location = new Point(0, 0);
-            table.Size = new Size(782, 450);
-            table.TabIndex = 3;
+            table.Size = new Size(780, 450);
 
             Controls.Add(table);
-
-            ShowPlayScreen();
+            ShowStartScreen();
         }
 
         private void HandleResize(object sender, EventArgs e)
@@ -70,25 +76,38 @@ namespace MetMah.Views
                 case GameStage.Finished:
                     ShowFinishedScreen();
                     break;
+                case GameStage.ActivatedDialogue:
+                    ShowDialogueScreen();
+                    break;
                 case GameStage.NotStarted:
                 default:
-                    //ShowStartScreen();
+                    ShowStartScreen();
                     break;
             }
         }
 
-        //private void ShowStartScreen()
-        //{
-        //    HideScreens();
-        //    startControl.Configure(game);
-        //    startControl.Show();
-        //}
+        private void ShowStartScreen()
+        {
+            HideScreens();
+            startControl.Configure(game);
+            startControl.Show();
+        }
 
         private void ShowPlayScreen()
         {
             HideScreens();
-            playControl.Configure(game);
+            playControl.Configure();
             playControl.Show();
+        }
+
+        private void ShowDialogueScreen()
+        {
+            table.Controls.Remove(dialogueControl);
+            dialogueControl = new DialogueControl();
+            table.Controls.Add(dialogueControl, 1, 1);
+            dialogueControl.Focus();
+            dialogueControl.Configure(game, pressedKeys);
+            dialogueControl.Show();
         }
 
         private void ShowFinishedScreen()
@@ -100,8 +119,9 @@ namespace MetMah.Views
 
         private void HideScreens()
         {
-            //startControl.Hide();
+            startControl.Hide();
             playControl.Hide();
+            dialogueControl.Hide();
             finishedControl.Hide();
         }
     }
