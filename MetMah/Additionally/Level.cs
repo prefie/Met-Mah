@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace MetMah.Additionally
 {
@@ -11,6 +12,7 @@ namespace MetMah.Additionally
         public bool IsOver => CountBeer() == 0;
         public readonly int Width;
         public readonly int Height;
+        public Keys KeyPressed;
         public readonly string TextInitiallyMap;
 
         public Level(string map)
