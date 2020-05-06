@@ -192,7 +192,7 @@ namespace MetMah
             var levels = new List<Level>();
             string str = @"
            TTTTT  SB  CTTTTT
- CPC          L LTTTTTLTTTTT
+  P           L LTTTTTLTTTTT
 TTTLTTTTL  TTTLTT     L  TTT
    L S  LLB   L       L  TTT
 TTTTTTTTLTTTTTTTTTTTTLL  TTT
