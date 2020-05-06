@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using MetMah.Creature;
@@ -14,7 +13,7 @@ namespace MetMah.Views
     public partial class PlayControl : UserControl
     {
         private readonly Dictionary<string, Bitmap> bitmaps = new Dictionary<string, Bitmap>();
-        private GameState game;
+        private readonly GameState game;
         private readonly HashSet<Keys> pressedKeys;
         private int tickCount;
         private readonly ProgressBar progressBar;

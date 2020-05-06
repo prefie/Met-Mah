@@ -35,9 +35,9 @@ namespace MetMah.Additionally
                 case 'L':
                     return new Stairs();
                 case 'S':
-                    return new Student(new Dialogue("Do you love me?",
-                                                new string[] { "Yes", "No", "I don't know" },
-                                                "Yes"));
+                    return new Student(new Dialogue("Ой, я забыл, а где аквариум?",
+                                                new string[] { "Откуда мне знать?", "628а", "Иди отсюда" },
+                                                "628а"));
                 case 'C':
                     return new CleverStudent(new Dialogue("Do you love me?",
                                                 new string[] { "Yes", "No", "Maybe", "I don't know", "Help me" },
