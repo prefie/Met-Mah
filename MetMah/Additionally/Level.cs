@@ -2,17 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows.Forms;
 
 namespace MetMah.Additionally
 {
     public class Level
     {
-        private readonly List<ICreature>[,] Map; // Лист, потому что в одной клетке могут находиться несколько сущностей.
+        private readonly List<ICreature>[,] Map;
         public bool IsOver => CountBeer() == 0;
         public readonly int Width;
         public readonly int Height;
-        public Keys KeyPressed; // Для управления игроком на уровне.
         public readonly string TextInitiallyMap;
 
         public Level(string map)

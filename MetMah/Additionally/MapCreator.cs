@@ -7,7 +7,6 @@ namespace MetMah.Additionally
 {
     public static class MapCreator
     {
-        private static Random random = new Random();
         public static List<ICreature>[,] CreateMap(string map, string separator = "\r\n")
         {
             var rows = map.Split(new[] { separator, "\n" }, StringSplitOptions.RemoveEmptyEntries);

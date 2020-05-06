@@ -73,12 +73,9 @@ namespace MetMah
                                 Location = new Point(x, y),
                                 TargetLogicalLocation = new Point(x + command.DeltaX, y + command.DeltaY)
                             });
-                        // Если в клетке появились новые существа
                         creatures = CurrentLevel.GetCreatures(x, y).ToList();
                     }
                 }
-
-            // Потом в визуализации нужно продумать приоритет отрисовки и отсортировать Animations
         }
 
         public void EndAct()
@@ -163,7 +160,6 @@ namespace MetMah
 
         private List<ICreature>[,] GetCandidatesPerLocation()
         {
-            // Кандидаты на нахождение в этой клетке
             var creatures = new List<ICreature>[CurrentLevel.Width, CurrentLevel.Height];
             for (var x = 0; x < CurrentLevel.Width; x++)
                 for (var y = 0; y < CurrentLevel.Height; y++)
