@@ -17,6 +17,9 @@ namespace MetMah.Views
 
         public MainForm()
         {
+            StartPosition = FormStartPosition.Manual;
+            Location = new Point(5, 5);
+
             game = new GameState();
             game.StageChanged += Game_OnStageChanged;
 
