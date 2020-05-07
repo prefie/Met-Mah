@@ -72,6 +72,9 @@
     <Compile Include="Views\FinishedControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Views\PauseControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\StartControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

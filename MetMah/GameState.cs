@@ -116,6 +116,7 @@ namespace MetMah
 
             if (CurrentLevel.IsOver)
             {
+                var a = CurrentLevel.IsOver;
                 if (IndexCurrentLevel + 1 < Levels.Count)
                 {
                     IndexCurrentLevel += 1;
@@ -188,8 +189,6 @@ namespace MetMah
 
         public void Initialize()
         {
-
-            ChangeStage(GameStage.NotStarted);
             var levels = new List<Level>();
             string str = @"
            TTTTT  SB  CTTTTT
@@ -215,10 +214,13 @@ TTTTTTTTTTTTTTTTT";
             Levels = levels;
 
             CurrentLevel = Levels[0];
+            IndexCurrentLevel = 0;
             Actions = new List<CreatureAction>();
             IsGameOver = false;
             CurrentDialogue = null;
             PatienceScale = CurrentLevel.Height * CurrentLevel.Width * 2;
+
+            ChangeStage(GameStage.NotStarted);
         }
     }
 }

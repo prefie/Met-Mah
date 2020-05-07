@@ -6,7 +6,7 @@ namespace MetMah.Views
 {
     public partial class FinishedControl : UserControl
     {
-        private Button buttonPlay;
+        private Button buttonMenu;
         private Button buttonExit;
 
         public void Configure(GameState game)
@@ -15,25 +15,25 @@ namespace MetMah.Views
                 32 * 28,
                 32 * 13 + 32);
 
-            buttonPlay = new Button();
+            buttonMenu = new Button();
             buttonExit = new Button();
-            buttonPlay.Size = new Size(200, 35);
-            buttonPlay.BackColor = Color.LightGray;
+            buttonMenu.Size = new Size(200, 35);
+            buttonMenu.BackColor = Color.LightGray;
             buttonExit.Size = new Size(200, 35);
             buttonExit.BackColor = Color.LightGray;
             if (game.PatienceScale <= 0)
                 BackgroundImage = Image.FromFile(@"Images\Backgrounds\FinishLose.png");
             else
                 BackgroundImage = Image.FromFile(@"Images\Backgrounds\FinishWin.png");
-            buttonPlay.Location = new Point((Size.Width - buttonPlay.Size.Width) / 2,
-                (Size.Height - buttonPlay.Size.Height) / 2);
-            buttonExit.Location = new Point(buttonPlay.Location.X,
-                buttonPlay.Location.Y + 40);
-            buttonPlay.Text = "В главное меню";
+            buttonMenu.Location = new Point((Size.Width - buttonMenu.Size.Width) / 2,
+                (Size.Height - buttonMenu.Size.Height) / 2);
+            buttonExit.Location = new Point(buttonMenu.Location.X,
+                buttonMenu.Location.Y + 40);
+            buttonMenu.Text = "В главное меню";
             buttonExit.Text = "Выйти";
-            buttonPlay.Click += (sender, e) => game.Initialize();
+            buttonMenu.Click += (sender, e) => game.Initialize();
             buttonExit.Click += ExitButton_Click;
-            Controls.Add(buttonPlay);
+            Controls.Add(buttonMenu);
             Controls.Add(buttonExit);
         }
 

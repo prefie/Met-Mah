@@ -19,6 +19,7 @@ namespace MetMah.Views
         private readonly ProgressBar progressBar;
         private readonly Timer timer;
         private string namePlayer;
+        private PauseControl pauseControl;
 
         public PlayControl(GameState game)
         {
@@ -70,6 +71,15 @@ namespace MetMah.Views
 
         protected override void OnKeyDown(KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Escape)
+            {
+                timer.Stop();
+                tickCount = 0;
+                pauseControl = new PauseControl();
+                Controls.Add(pauseControl);
+                pauseControl.Configure(game, timer);
+                pauseControl.Show();
+            }
             pressedKeys.Add(e.KeyCode);
             game.SetKeyPressed(e.KeyCode);
         }
@@ -77,6 +87,7 @@ namespace MetMah.Views
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
+            Focus();
             DoubleBuffered = true;
         }
 
@@ -183,16 +194,18 @@ namespace MetMah.Views
 
         private void TimerTick(object sender, EventArgs args)
         {
+            if (!game.IsDialogueActivated)
+                Focus();
             progressBar.Maximum = game.WidthCurrentLevel * game.HeightCurrentLevel * 2 + 1;
             if (tickCount == 0)
             {
                 game.BeginAct();
-                if (game.CurrentDialogue is null)
+                if (!game.IsDialogueActivated)
                     foreach (var e in game.Actions)
                         e.Location = new Point(e.Location.X * 32, e.Location.Y * 32);
             }
 
-            if (game.CurrentDialogue is null)
+            if (!game.IsDialogueActivated)
                 foreach (var e in game.Actions)
                     e.Location = new Point(e.Location.X + 4 * e.Command.DeltaX, e.Location.Y + 4 * e.Command.DeltaY);
 

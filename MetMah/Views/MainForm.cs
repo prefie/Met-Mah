@@ -9,9 +9,9 @@ namespace MetMah.Views
     {
         private readonly GameState game;
         private readonly TableLayoutPanel table;
-        private readonly PlayControl playControl;
-        private readonly StartControl startControl;
-        private readonly FinishedControl finishedControl;
+        private PlayControl playControl;
+        private StartControl startControl;
+        private FinishedControl finishedControl;
         private ChoiceCharacterControl choiceControl;
         private DialogueControl dialogueControl;
         
@@ -91,7 +91,6 @@ namespace MetMah.Views
             table.Controls.Remove(choiceControl);
             choiceControl = new ChoiceCharacterControl();
             table.Controls.Add(choiceControl, 1, 0);
-            choiceControl.Focus();
             choiceControl.Configure(game);
             choiceControl.Show();
         }
@@ -108,7 +107,6 @@ namespace MetMah.Views
             table.Controls.Remove(dialogueControl);
             dialogueControl = new DialogueControl();
             table.Controls.Add(dialogueControl, 1, 1);
-            dialogueControl.Focus();
             dialogueControl.Configure(game);
             dialogueControl.Show();
         }

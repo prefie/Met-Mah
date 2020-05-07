@@ -7,7 +7,7 @@ namespace MetMah.Views
     public partial class StartControl : UserControl
     {
         private GameState game;
-        private Button buttonMenu;
+        private Button buttonPlay;
         private Button buttonExit;
 
         public void Configure(GameState game)
@@ -17,23 +17,31 @@ namespace MetMah.Views
                 32 * 28,
                 32 * 13 + 32);
 
-            buttonMenu = new Button();
+            buttonPlay = new Button();
             buttonExit = new Button();
-            buttonMenu.Size = new Size(200, 35);
-            buttonMenu.BackColor = Color.LightGray;
+            buttonPlay.Size = new Size(200, 35);
+            buttonPlay.BackColor = Color.LightGray;
             buttonExit.Size = new Size(200, 35);
             buttonExit.BackColor = Color.LightGray;
             BackgroundImage = Image.FromFile(@"Images\Backgrounds\Background.png");
-            buttonMenu.Location = new Point((ClientSize.Width - buttonMenu.Size.Width) / 2,
-                (ClientSize.Height - buttonMenu.Size.Height) / 2);
-            buttonExit.Location = new Point(buttonMenu.Location.X,
-                buttonMenu.Location.Y + 40);
-            buttonMenu.Text = "Играть";
+            buttonPlay.Location = new Point((ClientSize.Width - buttonPlay.Size.Width) / 2,
+                (ClientSize.Height - buttonPlay.Size.Height) / 2);
+            buttonExit.Location = new Point(buttonPlay.Location.X,
+                buttonPlay.Location.Y + 40);
+            buttonPlay.Text = "Играть";
             buttonExit.Text = "Выйти";
-            buttonMenu.Click += StartButton_Click;
+            buttonPlay.Click += StartButton_Click;
             buttonExit.Click += ExitButton_Click;
-            Controls.Add(buttonMenu);
+            Controls.Add(buttonPlay);
             Controls.Add(buttonExit);
+
+            ActiveControl = Controls[0];
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Focus();
         }
 
         private void StartButton_Click(object sender, EventArgs e) => game.ChoiceCharacter();

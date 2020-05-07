@@ -36,21 +36,27 @@ namespace MetMah.Views
                 picture.MouseEnter +=
                     (sender, args) => picture.BackColor = Color.LightSkyBlue;
                 picture.MouseLeave +=
-                    (sender, args) => picture.BackColor = Color.FromArgb(30, Color.Blue); ;
+                    (sender, args) => picture.BackColor = Color.FromArgb(30, Color.Blue);
                 picture.BackColor = Color.FromArgb(30, Color.Blue); ;
 
                 pictures.Add(picture);
             }
 
-            var offset = 328;
+            var offset = (ClientSize.Width - 220) / 2;
             for (int i = 0; i < 4; i++)
             {
-                pictures[i].Location = new Point(offset, i % 2 == 0 ? 150 : 270);
+                pictures[i].Location = new Point(offset, i % 2 == 0 ? 120 : 240);
                 if (i % 2 != 0)
                     offset += 120;
             }
 
             Controls.AddRange(pictures.ToArray());
+        }
+
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Focus();
         }
 
         private void StartButton_Click(object sender, EventArgs e)

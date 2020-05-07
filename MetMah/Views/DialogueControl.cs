@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -44,7 +45,17 @@ namespace MetMah.Views
         protected override void OnPaint(PaintEventArgs e) =>
             e.Graphics.DrawString(game.CurrentDialogue.Text, new Font("Arial", 16), Brushes.Green, 0, 0);
 
-        private void SetKey(int i) => game.SetKeyPressed((Keys)(i + 49));
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+            Focus();
+        }
+
+        private void SetKey(int i)
+        {
+            game.SetKeyPressed((Keys)(i + 49));
+        }
+                
 
         protected override CreateParams CreateParams
         {
