@@ -38,7 +38,6 @@ namespace MetMah.Views
             table.RowCount = 2;
             table.RowStyles.Add(new RowStyle(SizeType.Absolute, game.HeightCurrentLevel * 32 + 32));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            table.Controls.Add(startControl, 1, 0);
             table.Controls.Add(playControl, 1, 0);
             table.Controls.Add(finishedControl, 1, 0);
             table.Dock = DockStyle.Fill;
@@ -81,6 +80,9 @@ namespace MetMah.Views
         private void ShowStartScreen()
         {
             HideScreens();
+            table.Controls.Remove(startControl);
+            startControl = new StartControl();
+            table.Controls.Add(startControl, 1, 0);
             startControl.Configure(game);
             startControl.Show();
         }

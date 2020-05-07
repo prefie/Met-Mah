@@ -9,6 +9,8 @@ namespace MetMah.Views
         private GameState game;
         private Button buttonPlay;
         private Button buttonExit;
+        private PictureBox picture;
+        private HelpControl helpControl;
 
         public void Configure(GameState game)
         {
@@ -32,8 +34,22 @@ namespace MetMah.Views
             buttonExit.Text = "Выйти";
             buttonPlay.Click += StartButton_Click;
             buttonExit.Click += ExitButton_Click;
+            
+            picture = new PictureBox();
+            picture.Location = new Point(buttonExit.Location.X - 40, buttonExit.Location.Y);
+            picture.Image = Image.FromFile(@"Images\Backgrounds\Question1.png");
+            picture.Size = new Size(35, 35);
+            picture.SizeMode = PictureBoxSizeMode.Normal;
+            picture.Click += PictureBox_Click;
+            picture.MouseEnter +=
+                (sender, args) => picture.Image = Image.FromFile(@"Images\Backgrounds\Question2.png");
+            picture.MouseLeave +=
+                (sender, args) => picture.Image = Image.FromFile(@"Images\Backgrounds\Question1.png");
+            BackColor = Color.Transparent;
+
             Controls.Add(buttonPlay);
             Controls.Add(buttonExit);
+            Controls.Add(picture);
 
             ActiveControl = Controls[0];
         }
@@ -42,6 +58,22 @@ namespace MetMah.Views
         {
             base.OnLoad(e);
             Focus();
+        }
+
+        private void PictureBox_Click(object sender, EventArgs e)
+        {
+            buttonExit.Hide();
+            buttonPlay.Hide();
+            picture.Hide();
+            helpControl = new HelpControl();
+            Controls.Add(helpControl);
+            helpControl.Configure();
+            helpControl.Disposed += (s, args) =>
+            {
+                buttonExit.Show();
+                buttonPlay.Show();
+                picture.Show();
+            };
         }
 
         private void StartButton_Click(object sender, EventArgs e) => game.ChoiceCharacter();

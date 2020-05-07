@@ -116,7 +116,6 @@ namespace MetMah
 
             if (CurrentLevel.IsOver)
             {
-                var a = CurrentLevel.IsOver;
                 if (IndexCurrentLevel + 1 < Levels.Count)
                 {
                     IndexCurrentLevel += 1;
