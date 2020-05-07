@@ -9,7 +9,7 @@ namespace MetMah.Views
     {
         private readonly GameState game;
         private readonly TableLayoutPanel table;
-        private PlayControl playControl;
+        private readonly PlayControl playControl;
         private StartControl startControl;
         private FinishedControl finishedControl;
         private ChoiceCharacterControl choiceControl;

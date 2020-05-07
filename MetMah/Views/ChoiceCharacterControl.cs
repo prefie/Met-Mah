@@ -27,11 +27,13 @@ namespace MetMah.Views
             var files = imagesDirectory.GetFiles("*Character.png");
             foreach (var e in files)
             {
-                var picture = new PictureBox();
-                picture.Image = Image.FromFile(e.FullName);
-                picture.Name = e.Name;
-                picture.Size = new Size(100, 100);
-                picture.SizeMode = PictureBoxSizeMode.Normal;
+                var picture = new PictureBox
+                {
+                    Image = Image.FromFile(e.FullName),
+                    Name = e.Name,
+                    Size = new Size(100, 100),
+                    SizeMode = PictureBoxSizeMode.Normal
+                };
                 picture.Click += StartButton_Click;
                 picture.MouseEnter +=
                     (sender, args) => picture.BackColor = Color.LightSkyBlue;

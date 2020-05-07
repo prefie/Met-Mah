@@ -60,10 +60,12 @@ namespace MetMah.Views
             Controls.Add(buttonCharacters);
             Controls.Add(buttonExit);
 
-            buttonBack = new Button();
-            buttonBack.Size = new Size(200, 35);
-            buttonBack.BackColor = Color.LightGray;
-            buttonBack.Text = "Назад";
+            buttonBack = new Button
+            {
+                Size = new Size(200, 35),
+                BackColor = Color.LightGray,
+                Text = "Назад"
+            };
 
             ActiveControl = Controls[0];
         }
