@@ -34,7 +34,7 @@ namespace MetMah.Views
             buttonExit.Text = "Выйти";
             buttonPlay.Click += StartButton_Click;
             buttonExit.Click += ExitButton_Click;
-            
+
             picture = new PictureBox();
             picture.Location = new Point(buttonExit.Location.X - 40, buttonExit.Location.Y);
             picture.Image = Image.FromFile(@"Images\Backgrounds\Question1.png");
