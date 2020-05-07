@@ -22,9 +22,9 @@ namespace MetMah.Views
             buttonExit.Size = new Size(200, 35);
             buttonExit.BackColor = Color.LightGray;
             if (game.PatienceScale <= 0)
-                BackgroundImage = Image.FromFile(@"Images\FinishLose.png");
+                BackgroundImage = Image.FromFile(@"Images\Backgrounds\FinishLose.png");
             else
-                BackgroundImage = Image.FromFile(@"Images\FinishWin.png");
+                BackgroundImage = Image.FromFile(@"Images\Backgrounds\FinishWin.png");
             buttonPlay.Location = new Point((Size.Width - buttonPlay.Size.Width) / 2,
                 (Size.Height - buttonPlay.Size.Height) / 2);
             buttonExit.Location = new Point(buttonPlay.Location.X,

@@ -38,6 +38,11 @@ namespace MetMah
             Initialize();
         }
 
+        public void ChoiceCharacter()
+        {
+            ChangeStage(GameStage.ChoiceCharacter);
+        }
+
         public void Start()
         {
             ChangeStage(GameStage.Play);

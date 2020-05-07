@@ -63,6 +63,9 @@
     <Compile Include="Creature\Stairs.cs" />
     <Compile Include="Creature\Student.cs" />
     <Compile Include="Creature\Terrain.cs" />
+    <Compile Include="Views\ChoiceCharacterControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Views\DialogueControl.cs">
       <SubType>UserControl</SubType>
     </Compile>

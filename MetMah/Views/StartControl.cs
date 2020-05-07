@@ -23,7 +23,7 @@ namespace MetMah.Views
             buttonMenu.BackColor = Color.LightGray;
             buttonExit.Size = new Size(200, 35);
             buttonExit.BackColor = Color.LightGray;
-            BackgroundImage = Image.FromFile(@"Images\Background.png");
+            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Background.png");
             buttonMenu.Location = new Point((ClientSize.Width - buttonMenu.Size.Width) / 2,
                 (ClientSize.Height - buttonMenu.Size.Height) / 2);
             buttonExit.Location = new Point(buttonMenu.Location.X,
@@ -36,7 +36,7 @@ namespace MetMah.Views
             Controls.Add(buttonExit);
         }
 
-        private void StartButton_Click(object sender, EventArgs e) => game.Start();
+        private void StartButton_Click(object sender, EventArgs e) => game.ChoiceCharacter();
 
         private void ExitButton_Click(object sender, EventArgs e) => Application.Exit();
 

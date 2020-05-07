@@ -12,6 +12,7 @@ namespace MetMah.Views
         private readonly PlayControl playControl;
         private readonly StartControl startControl;
         private readonly FinishedControl finishedControl;
+        private ChoiceCharacterControl choiceControl;
         private DialogueControl dialogueControl;
         
 
@@ -28,6 +29,7 @@ namespace MetMah.Views
             playControl = new PlayControl(game);
             finishedControl = new FinishedControl();
             dialogueControl = new DialogueControl();
+            choiceControl = new ChoiceCharacterControl();
 
             table.ColumnCount = 3;
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
@@ -39,7 +41,6 @@ namespace MetMah.Views
             table.Controls.Add(startControl, 1, 0);
             table.Controls.Add(playControl, 1, 0);
             table.Controls.Add(finishedControl, 1, 0);
-            table.Controls.Add(dialogueControl, 1, 1);
             table.Dock = DockStyle.Fill;
 
             Controls.Add(table);
@@ -58,6 +59,9 @@ namespace MetMah.Views
         {
             switch (stage)
             {
+                case GameStage.ChoiceCharacter:
+                    ShowChoiceCharacterScreen();
+                    break;
                 case GameStage.Play:
                     ShowPlayScreen();
                     break;
@@ -81,10 +85,21 @@ namespace MetMah.Views
             startControl.Show();
         }
 
+        private void ShowChoiceCharacterScreen()
+        {
+            HideScreens();
+            table.Controls.Remove(choiceControl);
+            choiceControl = new ChoiceCharacterControl();
+            table.Controls.Add(choiceControl, 1, 0);
+            choiceControl.Focus();
+            choiceControl.Configure(game);
+            choiceControl.Show();
+        }
+
         private void ShowPlayScreen()
         {
             HideScreens();
-            playControl.Configure();
+            playControl.Configure(choiceControl.PlayerName);
             playControl.Show();
         }
 
@@ -108,6 +123,7 @@ namespace MetMah.Views
         private void HideScreens()
         {
             startControl.Hide();
+            choiceControl.Hide();
             playControl.Hide();
             dialogueControl.Hide();
             finishedControl.Hide();

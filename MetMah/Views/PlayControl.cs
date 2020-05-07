@@ -18,6 +18,7 @@ namespace MetMah.Views
         private int tickCount;
         private readonly ProgressBar progressBar;
         private readonly Timer timer;
+        private string namePlayer;
 
         public PlayControl(GameState game)
         {
@@ -33,14 +34,14 @@ namespace MetMah.Views
             ClientSizeChanged += HandleResize;
             PreviewKeyDown += NewPreviewKeyDown;
 
-            BackgroundImage = Image.FromFile(@"Images\LightBackground.png");
-            var imagesDirectory = new DirectoryInfo("Images");
+            BackgroundImage = Image.FromFile(@"Images\Backgrounds\LightBackground.png");
+            var imagesDirectory = new DirectoryInfo(@"Images\Creatures");
             foreach (var e in imagesDirectory.GetFiles("*.png"))
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
 
             ClientSize = new Size(
-                32 * game.WidthCurrentLevel,
-                32 * game.HeightCurrentLevel + 32);
+                32 * 28,
+                32 * 13 + 32);
 
             timer = new Timer { Interval = 20 };
             timer.Tick += TimerTick;
@@ -50,7 +51,11 @@ namespace MetMah.Views
             };
         }
 
-        public void Configure() => timer.Start();
+        public void Configure(string playerName)
+        {
+            namePlayer = playerName;
+            timer.Start();
+        }
 
         private void HandleResize(object sender, EventArgs e) => Invalidate();
 
@@ -108,14 +113,13 @@ namespace MetMah.Views
             }
         }
 
-        private static string GetImageFileName(ICreature creature, int DeltaX)
+        private string GetImageFileName(ICreature creature, int DeltaX)
         {
             if (creature is Player)
             {
                 if (DeltaX == -1)
-                    return "PlayerLeft.png";
-                else
-                    return "PlayerRight.png";
+                    return namePlayer[0] + "PlayerLeft.png";
+                return namePlayer[0] + "PlayerRight.png";
             }
 
             if (creature is Beer)
@@ -127,8 +131,7 @@ namespace MetMah.Views
                     return "PepelStudent.png";
                 if (DeltaX == -1)
                     return "Student.Left.png";
-                else
-                    return "Student.Right.png";
+                return "Student.Right.png";
             }
 
             if (creature is Stairs)
@@ -146,8 +149,7 @@ namespace MetMah.Views
                     return "PepelCleverStudent.png";
                 if (DeltaX == -1)
                     return "CleverStudentLeft.png";
-                else
-                    return "CleverStudentRight.png";
+                return "CleverStudentRight.png";
             }
 
             return null;
