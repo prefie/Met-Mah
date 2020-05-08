@@ -1,6 +1,7 @@
 ﻿using MetMah.Additionally;
 using System;
 using System.Drawing;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace MetMah.Views
@@ -14,7 +15,7 @@ namespace MetMah.Views
         private FinishedControl finishedControl;
         private ChoiceCharacterControl choiceControl;
         private DialogueControl dialogueControl;
-        
+
 
         public MainForm()
         {
@@ -42,6 +43,8 @@ namespace MetMah.Views
             table.Controls.Add(playControl, 1, 0);
             table.Dock = DockStyle.Fill;
 
+            ClientSizeChanged += HandleResize;
+
             Controls.Add(table);
             ShowStartScreen();
         }
@@ -52,6 +55,31 @@ namespace MetMah.Views
             base.OnLoad(e);
             Text = "Escape from MetMah";
             DoubleBuffered = true;
+        }
+
+        private void HandleResize(object sender, EventArgs e)
+        {
+            HideScreens();
+
+            switch(game.Stage)
+            {
+                case GameStage.NotStarted:
+                    startControl.Show();
+                    break;
+                case GameStage.ChoiceCharacter:
+                    choiceControl.Show();
+                    break;
+                case GameStage.Play:
+                    playControl.Show();
+                    break;
+                case GameStage.ActivatedDialogue:
+                    playControl.Show();
+                    dialogueControl.Show();
+                    break;
+                case GameStage.Finished:
+                    finishedControl.Show();
+                    break;
+            }
         }
 
         private void Game_OnStageChanged(GameStage stage)

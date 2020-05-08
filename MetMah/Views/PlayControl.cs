@@ -33,7 +33,6 @@ namespace MetMah.Views
             };
             Controls.Add(progressBar);
 
-            ClientSizeChanged += HandleResize;
             PreviewKeyDown += NewPreviewKeyDown;
 
             BackgroundImage = Image.FromFile(@"Images\Backgrounds\LightBackground.png");
@@ -58,8 +57,6 @@ namespace MetMah.Views
             namePlayer = playerName;
             timer.Start();
         }
-
-        private void HandleResize(object sender, EventArgs e) => Invalidate();
 
         private void NewPreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
