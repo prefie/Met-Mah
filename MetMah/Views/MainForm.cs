@@ -40,7 +40,6 @@ namespace MetMah.Views
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
 
             table.Controls.Add(playControl, 1, 0);
-            table.Controls.Add(finishedControl, 1, 0);
             table.Dock = DockStyle.Fill;
 
             Controls.Add(table);
@@ -117,6 +116,9 @@ namespace MetMah.Views
         private void ShowFinishedScreen()
         {
             HideScreens();
+            table.Controls.Remove(finishedControl);
+            finishedControl = new FinishedControl();
+            table.Controls.Add(finishedControl, 1, 0);
             finishedControl.Configure(game);
             finishedControl.Show();
         }
