@@ -51,9 +51,9 @@ namespace MetMah.Views
             Focus();
         }
 
-        private void SetKey(int i)
+        private void SetKey(int key)
         {
-            game.SetKeyPressed((Keys)(i + 49));
+            game.SetKeyPressed((Keys)(key + 49));
         }
                 
 

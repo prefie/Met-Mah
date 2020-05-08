@@ -32,6 +32,7 @@ namespace MetMah.Views
                 Style = ProgressBarStyle.Continuous
             };
             Controls.Add(progressBar);
+
             ClientSizeChanged += HandleResize;
             PreviewKeyDown += NewPreviewKeyDown;
 

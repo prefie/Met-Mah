@@ -36,6 +36,7 @@ namespace MetMah.Views
             buttonContinue.BackColor = Color.LightGray;
             buttonRestart.Size = new Size(6 * 32, 35);
             buttonRestart.BackColor = Color.LightGray;
+
             buttonContinue.Location = new Point((ClientSize.Width - buttonMenu.Size.Width) / 2,
                 (ClientSize.Height - buttonMenu.Size.Height) - 180);
             buttonRestart.Location = new Point(buttonContinue.Location.X,
@@ -44,14 +45,17 @@ namespace MetMah.Views
                 buttonRestart.Location.Y + 50);
             buttonExit.Location = new Point(buttonMenu.Location.X,
                 buttonMenu.Location.Y + 50);
+
             buttonContinue.Text = "Продолжить";
             buttonRestart.Text = "Начать сначала";
             buttonMenu.Text = "В главное меню";
             buttonExit.Text = "Выйти";
+
             buttonContinue.Click += ContinueButton_Click;
             buttonRestart.Click += RestartButton_Click;
             buttonMenu.Click += MenuButton_Click;
             buttonExit.Click += ExitButton_Click;
+
             Controls.Add(buttonContinue);
             Controls.Add(buttonRestart);
             Controls.Add(buttonMenu);

@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MetMah.Views
@@ -45,6 +39,7 @@ namespace MetMah.Views
                 buttonControl.Location.Y + 40);
             buttonExit.Location = new Point(buttonCharacters.Location.X,
                 buttonCharacters.Location.Y + 40);
+
             buttonDescription.Text = "Описание игры";
             buttonControl.Text = "Управление";
             buttonCharacters.Text = "О персонажах";

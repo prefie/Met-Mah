@@ -18,7 +18,7 @@ namespace MetMah.Views
             this.game = game;
             ClientSize = new Size(
                 32 * 28,
-                32 * 13 + 32);
+                32 * 14);
 
             BackgroundImage = Image.FromFile(@"Images\Backgrounds\Choice.png");
             pictures = new List<PictureBox>();

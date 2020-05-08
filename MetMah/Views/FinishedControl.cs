@@ -13,26 +13,32 @@ namespace MetMah.Views
         {
             ClientSize = new Size(
                 32 * 28,
-                32 * 13 + 32);
+                32 * 14);
 
             buttonMenu = new Button();
             buttonExit = new Button();
+
             buttonMenu.Size = new Size(200, 35);
             buttonMenu.BackColor = Color.LightGray;
             buttonExit.Size = new Size(200, 35);
             buttonExit.BackColor = Color.LightGray;
+
             if (game.PatienceScale <= 0)
                 BackgroundImage = Image.FromFile(@"Images\Backgrounds\FinishLose.png");
             else
                 BackgroundImage = Image.FromFile(@"Images\Backgrounds\FinishWin.png");
+
             buttonMenu.Location = new Point((Size.Width - buttonMenu.Size.Width) / 2,
                 (Size.Height - buttonMenu.Size.Height) / 2);
             buttonExit.Location = new Point(buttonMenu.Location.X,
                 buttonMenu.Location.Y + 40);
+
             buttonMenu.Text = "В главное меню";
             buttonExit.Text = "Выйти";
+
             buttonMenu.Click += (sender, e) => game.Initialize();
             buttonExit.Click += ExitButton_Click;
+
             Controls.Add(buttonMenu);
             Controls.Add(buttonExit);
         }

@@ -38,15 +38,9 @@ namespace MetMah
             Initialize();
         }
 
-        public void ChoiceCharacter()
-        {
-            ChangeStage(GameStage.ChoiceCharacter);
-        }
+        public void ChoiceCharacter() => ChangeStage(GameStage.ChoiceCharacter);
 
-        public void Start()
-        {
-            ChangeStage(GameStage.Play);
-        }
+        public void Start() => ChangeStage(GameStage.Play);
 
         public void SetKeyPressed(Keys key) => CurrentLevel.KeyPressed = key;
 

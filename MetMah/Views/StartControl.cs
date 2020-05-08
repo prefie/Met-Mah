@@ -17,7 +17,7 @@ namespace MetMah.Views
             this.game = game;
             ClientSize = new Size(
                 32 * 28,
-                32 * 13 + 32);
+                32 * 14);
 
             buttonPlay = new Button();
             buttonExit = new Button();
@@ -25,22 +25,30 @@ namespace MetMah.Views
             buttonPlay.BackColor = Color.LightGray;
             buttonExit.Size = new Size(200, 35);
             buttonExit.BackColor = Color.LightGray;
+
             BackgroundImage = Image.FromFile(@"Images\Backgrounds\Background.png");
+
             buttonPlay.Location = new Point((ClientSize.Width - buttonPlay.Size.Width) / 2,
                 (ClientSize.Height - buttonPlay.Size.Height) / 2);
             buttonExit.Location = new Point(buttonPlay.Location.X,
                 buttonPlay.Location.Y + 40);
+
             buttonPlay.Text = "Играть";
             buttonExit.Text = "Выйти";
+
             buttonPlay.Click += StartButton_Click;
             buttonExit.Click += ExitButton_Click;
 
-            picture = new PictureBox();
-            picture.Location = new Point(buttonExit.Location.X - 40, buttonExit.Location.Y);
-            picture.Image = Image.FromFile(@"Images\Backgrounds\Question1.png");
-            picture.Size = new Size(35, 35);
-            picture.SizeMode = PictureBoxSizeMode.Normal;
+            picture = new PictureBox
+            {
+                Location = new Point(buttonExit.Location.X - 40, buttonExit.Location.Y),
+                Image = Image.FromFile(@"Images\Backgrounds\Question1.png"),
+                Size = new Size(35, 35),
+                SizeMode = PictureBoxSizeMode.Normal
+            };
+
             picture.Click += PictureBox_Click;
+
             picture.MouseEnter +=
                 (sender, args) => picture.Image = Image.FromFile(@"Images\Backgrounds\Question2.png");
             picture.MouseLeave +=
@@ -65,6 +73,7 @@ namespace MetMah.Views
             buttonExit.Hide();
             buttonPlay.Hide();
             picture.Hide();
+
             helpControl = new HelpControl();
             Controls.Add(helpControl);
             helpControl.Configure();
