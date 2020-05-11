@@ -79,7 +79,7 @@ namespace MetMah
 
         public void EndAct()
         {
-            if (PatienceScale-- < 0)
+            if (PatienceScale-- <= 0)
             {
                 IsGameOver = true;
                 ChangeStage(GameStage.Finished);
