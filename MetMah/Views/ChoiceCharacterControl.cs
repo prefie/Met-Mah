@@ -17,8 +17,8 @@ namespace MetMah.Views
         {
             this.game = game;
             ClientSize = new Size(
-                32 * 28,
-                32 * 14);
+                50 * 28,
+                50 * 14);
 
             BackgroundImage = Image.FromFile(@"Images\Backgrounds\Choice.png");
             pictures = new List<PictureBox>();
@@ -31,7 +31,7 @@ namespace MetMah.Views
                 {
                     Image = Image.FromFile(e.FullName),
                     Name = e.Name,
-                    Size = new Size(100, 100),
+                    Size = new Size(150, 150),
                     SizeMode = PictureBoxSizeMode.Normal
                 };
                 picture.Click += StartButton_Click;
@@ -44,12 +44,12 @@ namespace MetMah.Views
                 pictures.Add(picture);
             }
 
-            var offset = (ClientSize.Width - 220) / 2;
+            var offset = (ClientSize.Width - 320) / 2;
             for (int i = 0; i < 4; i++)
             {
-                pictures[i].Location = new Point(offset, i % 2 == 0 ? 120 : 240);
+                pictures[i].Location = new Point(offset, i % 2 == 0 ? 170 : 340);
                 if (i % 2 != 0)
-                    offset += 120;
+                    offset += 170;
             }
 
             Controls.AddRange(pictures.ToArray());

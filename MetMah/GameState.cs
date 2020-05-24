@@ -12,7 +12,7 @@ namespace MetMah
     {
         public Level CurrentLevel { get; private set; }
         public int IndexCurrentLevel { get; private set; }
-        private List<Level> Levels;
+        private Level[] Levels;
         public List<CreatureAction> Actions { get; private set; }
         public bool IsGameOver { get; private set; }
         public Dialogue CurrentDialogue { get; private set; }
@@ -27,7 +27,7 @@ namespace MetMah
         public GameState(IEnumerable<Level> levels)
         {
             Stage = GameStage.NotStarted;
-            Levels = levels.ToList();
+            Levels = levels.ToArray();
             CurrentLevel = Levels[0];
             Actions = new List<CreatureAction>();
             PatienceScale = CurrentLevel.Height * CurrentLevel.Width * 2;
@@ -52,10 +52,10 @@ namespace MetMah
             for (var x = 0; x < CurrentLevel.Width; x++)
                 for (var y = 0; y < CurrentLevel.Height; y++)
                 {
-                    var creatures = CurrentLevel.GetCreatures(x, y).ToList();
+                    var creatures = CurrentLevel.GetCreatures(x, y).ToArray();
                     if (creatures == null) continue;
 
-                    for (int i = 0; i < creatures.Count; i++)
+                    for (int i = 0; i < creatures.Length; i++)
                     {
                         if (creatures[i] == null) continue;
                         var command = creatures[i].Act(CurrentLevel, x, y);
@@ -72,7 +72,7 @@ namespace MetMah
                                 Location = new Point(x, y),
                                 TargetLogicalLocation = new Point(x + command.DeltaX, y + command.DeltaY)
                             });
-                        creatures = CurrentLevel.GetCreatures(x, y).ToList();
+                        creatures = CurrentLevel.GetCreatures(x, y).ToArray();
                     }
                 }
         }
@@ -110,7 +110,7 @@ namespace MetMah
 
             if (CurrentLevel.IsOver)
             {
-                if (IndexCurrentLevel + 1 < Levels.Count)
+                if (IndexCurrentLevel + 1 < Levels.Length)
                 {
                     IndexCurrentLevel += 1;
                     CurrentLevel = Levels[IndexCurrentLevel];
@@ -142,7 +142,10 @@ namespace MetMah
         private void ResolvingConflict(List<ICreature> aliveCandidates, ICreature candidate, ICreature rival)
         {
             if (candidate is Beer && rival is Player)
+            {
                 aliveCandidates.Remove(candidate);
+                CurrentLevel.CountBeer--;
+            }
 
             if (candidate is Student && rival is Player)
             {
@@ -190,12 +193,12 @@ TTTLTTTTL  TTTLTT     L  TTT
    L S  LLB   L       L  TTT
 TTTTTTTTLTTTTTTTTTTTTLL  TTT
         L            TTTTTTT
-      S L S       C    B TTT
+      S L S            B TTT
  B   LTTTTTTTTTTTTTTTTTTTTTT
-TTTLTT             C        
+TTTLTT                      
    LTTTTTTTTTTTTTTTTTTTTTTTT
    L                        
-             C         BBB  
+                       BBB  
 TTTTTTTTTTTTTTTTTTTTTTTTTTTT";
             var str1 = @"
 P     S      B   
@@ -204,7 +207,7 @@ TTTTTTTTTTTTTTTTT";
             var level1 = new Level(str1);
             levels.Add(level);
             levels.Add(level1);
-            Levels = levels;
+            Levels = levels.ToArray();
 
             CurrentLevel = Levels[0];
             IndexCurrentLevel = 0;

@@ -18,33 +18,39 @@ namespace MetMah.Views
             this.timer = timer;
             this.game = game;
             ClientSize = new Size(
-                32 * 10,
-                32 * 8 + 32);
+                50 * 10,
+                50 * 8 + 32);
 
-            Location = new Point(32 * 9, 32 * 3);
+            Location = new Point(50 * 9, 50 * 3);
             BackColor = Color.FromArgb(160, Color.Black);
+
+            var font = new Font("Arial", 16);
 
             buttonMenu = new Button();
             buttonExit = new Button();
             buttonContinue = new Button();
             buttonRestart = new Button();
-            buttonMenu.Size = new Size(6 * 32, 35);
+            buttonMenu.Size = new Size(6 * 50, 45);
             buttonMenu.BackColor = Color.LightGray;
-            buttonExit.Size = new Size(6 * 32, 35);
+            buttonMenu.Font = font;
+            buttonExit.Size = new Size(6 * 50, 45);
             buttonExit.BackColor = Color.LightGray;
-            buttonContinue.Size = new Size(6 * 32, 35);
+            buttonExit.Font = font;
+            buttonContinue.Size = new Size(6 * 50, 45);
             buttonContinue.BackColor = Color.LightGray;
-            buttonRestart.Size = new Size(6 * 32, 35);
+            buttonContinue.Font = font;
+            buttonRestart.Size = new Size(6 * 50, 45);
             buttonRestart.BackColor = Color.LightGray;
+            buttonRestart.Font = font;
 
             buttonContinue.Location = new Point((ClientSize.Width - buttonMenu.Size.Width) / 2,
-                (ClientSize.Height - buttonMenu.Size.Height) - 180);
+                (ClientSize.Height - buttonMenu.Size.Height) - 270);
             buttonRestart.Location = new Point(buttonContinue.Location.X,
-                buttonContinue.Location.Y + 50);
+                buttonContinue.Location.Y + 60);
             buttonMenu.Location = new Point(buttonRestart.Location.X,
-                buttonRestart.Location.Y + 50);
+                buttonRestart.Location.Y + 60);
             buttonExit.Location = new Point(buttonMenu.Location.X,
-                buttonMenu.Location.Y + 50);
+                buttonMenu.Location.Y + 60);
 
             buttonContinue.Text = "Продолжить";
             buttonRestart.Text = "Начать сначала";
@@ -67,7 +73,7 @@ namespace MetMah.Views
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.DrawString("Пауза", new Font("Arial", 32),
-                Brushes.White, ClientSize.Width / 2 - 67, 5);
+                Brushes.White, ClientSize.Width / 2 - 67, 25);
         }
 
         protected override void OnLoad(EventArgs e)

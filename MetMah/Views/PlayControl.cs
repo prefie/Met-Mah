@@ -41,10 +41,10 @@ namespace MetMah.Views
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
 
             ClientSize = new Size(
-                32 * 28,
-                32 * 13 + 32);
+                50 * 28,
+                50 * 13 + 50);
 
-            timer = new Timer { Interval = 20 };
+            timer = new Timer { Interval = 15 };
             timer.Tick += TimerTick;
             timer.Tick += (sender, args) =>
             {
@@ -92,7 +92,7 @@ namespace MetMah.Views
         protected override void OnKeyUp(KeyEventArgs e)
         {
             pressedKeys.Remove(e.KeyCode);
-            game.SetKeyPressed(pressedKeys.Any() ? pressedKeys.First() : Keys.None);
+            game.SetKeyPressed(pressedKeys.Any() ? pressedKeys.Min() : Keys.None);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -100,7 +100,7 @@ namespace MetMah.Views
             e.Graphics.DrawImage(bitmaps["Stone.png"], 0, 0);
 
             e.Graphics.TranslateTransform(0, 32);
-            var actions = game.Actions.OrderBy(x => GetPriority(x.Creature)).ToList();
+            var actions = game.Actions.OrderBy(x => GetPriority(x.Creature)).ToArray();
             foreach (var a in actions)
                 e.Graphics.DrawImage(bitmaps[GetImageFileName(a.Creature, a.Command.DeltaX)], a.Location);
             e.Graphics.ResetTransform();
@@ -136,8 +136,6 @@ namespace MetMah.Views
 
             if (creature is Student)
             {
-                if (creature.GetStatus() == Status.Inactive)
-                    return "PepelStudent.png";
                 if (DeltaX == -1)
                     return "Student.Left.png";
                 return "Student.Right.png";
@@ -154,8 +152,6 @@ namespace MetMah.Views
 
             if (creature is CleverStudent)
             {
-                if (creature.GetStatus() == Status.Inactive)
-                    return "PepelCleverStudent.png";
                 if (DeltaX == -1)
                     return "CleverStudentLeft.png";
                 return "CleverStudentRight.png";
@@ -167,7 +163,7 @@ namespace MetMah.Views
         private static int GetPriority(ICreature creature)
         {
             if (creature is Player)
-                return 4;
+                return 6;
 
             if (creature is Beer)
                 return 1;
@@ -200,19 +196,19 @@ namespace MetMah.Views
                 game.BeginAct();
                 if (!game.IsDialogueActivated)
                     foreach (var e in game.Actions)
-                        e.Location = new Point(e.Location.X * 32, e.Location.Y * 32);
+                        e.Location = new Point(e.Location.X * 50, e.Location.Y * 50);
             }
 
             if (!game.IsDialogueActivated)
                 foreach (var e in game.Actions)
-                    e.Location = new Point(e.Location.X + 4 * e.Command.DeltaX, e.Location.Y + 4 * e.Command.DeltaY);
+                    e.Location = new Point(e.Location.X + 5 * e.Command.DeltaX, e.Location.Y + 5 * e.Command.DeltaY);
 
-            if (tickCount == 7)
+            if (tickCount == 9)
                 game.EndAct();
 
             tickCount++;
 
-            if (tickCount == 8) tickCount = 0;
+            if (tickCount == 10) tickCount = 0;
             Invalidate();
         }
 

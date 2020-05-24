@@ -16,22 +16,26 @@ namespace MetMah.Views
         {
             this.game = game;
             ClientSize = new Size(
-                32 * 28,
-                32 * 14);
+                50 * 28,
+                50 * 14);
+
+            var font = new Font("Arial", 16);
 
             buttonPlay = new Button();
             buttonExit = new Button();
-            buttonPlay.Size = new Size(200, 35);
+            buttonPlay.Size = new Size(300, 45);
             buttonPlay.BackColor = Color.LightGray;
-            buttonExit.Size = new Size(200, 35);
+            buttonPlay.Font = font;
+            buttonExit.Size = new Size(300, 45);
             buttonExit.BackColor = Color.LightGray;
+            buttonExit.Font = font;
 
             BackgroundImage = Image.FromFile(@"Images\Backgrounds\Background.png");
 
             buttonPlay.Location = new Point((ClientSize.Width - buttonPlay.Size.Width) / 2,
-                (ClientSize.Height - buttonPlay.Size.Height) / 2);
+                (ClientSize.Height - buttonPlay.Size.Height) / 2 + 30);
             buttonExit.Location = new Point(buttonPlay.Location.X,
-                buttonPlay.Location.Y + 40);
+                buttonPlay.Location.Y + 50);
 
             buttonPlay.Text = "Играть";
             buttonExit.Text = "Выйти";
@@ -41,9 +45,9 @@ namespace MetMah.Views
 
             picture = new PictureBox
             {
-                Location = new Point(buttonExit.Location.X - 40, buttonExit.Location.Y),
+                Location = new Point(buttonExit.Location.X - 60, buttonExit.Location.Y),
                 Image = Image.FromFile(@"Images\Backgrounds\Question1.png"),
-                Size = new Size(35, 35),
+                Size = new Size(45, 45),
                 SizeMode = PictureBoxSizeMode.Normal
             };
 

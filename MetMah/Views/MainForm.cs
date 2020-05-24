@@ -34,10 +34,10 @@ namespace MetMah.Views
 
             table.ColumnCount = 3;
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, game.WidthCurrentLevel * 32));
+            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, game.WidthCurrentLevel * 50));
             table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             table.RowCount = 2;
-            table.RowStyles.Add(new RowStyle(SizeType.Absolute, game.HeightCurrentLevel * 32 + 32));
+            table.RowStyles.Add(new RowStyle(SizeType.Absolute, game.HeightCurrentLevel * 50 + 50));
             table.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
 
             table.Controls.Add(playControl, 1, 0);
@@ -51,7 +51,7 @@ namespace MetMah.Views
 
         protected override void OnLoad(EventArgs e)
         {
-            MinimumSize = new Size(32 * game.WidthCurrentLevel + 100, 32 * game.HeightCurrentLevel + 210);
+            MinimumSize = new Size(50 * game.WidthCurrentLevel, 50 * game.HeightCurrentLevel + 210);
             base.OnLoad(e);
             Text = "Escape from MetMah";
             DoubleBuffered = true;

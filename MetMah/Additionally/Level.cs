@@ -9,11 +9,12 @@ namespace MetMah.Additionally
     public class Level
     {
         private readonly List<ICreature>[,] Map;
-        public bool IsOver => CountBeer() == 0;
+        public bool IsOver => CountBeer < 1;
         public readonly int Width;
         public readonly int Height;
         public Keys KeyPressed;
         public readonly string TextInitiallyMap;
+        public int CountBeer { get; set; }
 
         public Level(string map)
         {
@@ -21,9 +22,10 @@ namespace MetMah.Additionally
             Width = Map.GetLength(0);
             Height = Map.GetLength(1);
             TextInitiallyMap = map;
+            CountBeer = DeemBeer();
         }
 
-        public int CountBeer()
+        public int DeemBeer()
         {
             var countBeer = 0;
             for (int x = 0; x < Width; x++)
