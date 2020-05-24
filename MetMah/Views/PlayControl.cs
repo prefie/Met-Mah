@@ -44,11 +44,12 @@ namespace MetMah.Views
                 50 * 28,
                 50 * 13 + 50);
 
-            timer = new Timer { Interval = 15 };
+            timer = new Timer { Interval = 20 };
             timer.Tick += TimerTick;
             timer.Tick += (sender, args) =>
             {
-                if (game.IsGameOver) timer.Stop();
+                if (game.Stage == GameStage.Finished)
+                    timer.Stop();
             };
         }
 
@@ -201,14 +202,14 @@ namespace MetMah.Views
 
             if (!game.IsDialogueActivated)
                 foreach (var e in game.Actions)
-                    e.Location = new Point(e.Location.X + 5 * e.Command.DeltaX, e.Location.Y + 5 * e.Command.DeltaY);
+                    e.Location = new Point(e.Location.X + 6 * e.Command.DeltaX, e.Location.Y + 6 * e.Command.DeltaY);
 
-            if (tickCount == 9)
+            if (tickCount == 7)
                 game.EndAct();
 
             tickCount++;
 
-            if (tickCount == 10) tickCount = 0;
+            if (tickCount == 8) tickCount = 0;
             Invalidate();
         }
 

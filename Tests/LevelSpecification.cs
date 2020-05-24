@@ -75,13 +75,13 @@ namespace Tests
         public void CountBeer_ShouldReturnZero_IfBeerNotFound()
         {
             var testLevel = new Level("   \r\nTTT");
-            testLevel.CountBeer().Should().Be(0);
+            testLevel.DeemBeer().Should().Be(0);
         }
 
         [Test]
         public void CountBeer_ShouldReturnCorrectCount_WhenBeerOnMap()
         {
-            level.CountBeer().Should().Be(2);
+            level.DeemBeer().Should().Be(2);
         }
 
         [Test]
@@ -94,7 +94,9 @@ namespace Tests
         public void IsOver_ShouldReturnTrue_IfBeerNotFound()
         {
             level.RemoveCreature(2, 2, typeof(Beer));
+            level.CountBeer--;
             level.RemoveCreature(2, 3, typeof(Beer));
+            level.CountBeer--;
             level.IsOver.Should().BeTrue();
         }
 

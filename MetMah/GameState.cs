@@ -79,7 +79,7 @@ namespace MetMah
 
         public void EndAct()
         {
-            if (PatienceScale-- <= 0)
+            if (--PatienceScale <= 0)
             {
                 IsGameOver = true;
                 ChangeStage(GameStage.Finished);
@@ -203,8 +203,8 @@ TTTTTTTTTTTTTTTTTTTTTTTTTTTT";
             var str1 = @"
 P     S      B   
 TTTTTTTTTTTTTTTTT";
-            var level = new Level(str);
-            var level1 = new Level(str1);
+            var level1 = new Level(str);
+            var level = new Level(str1);
             levels.Add(level);
             levels.Add(level1);
             Levels = levels.ToArray();

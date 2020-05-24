@@ -73,7 +73,7 @@ namespace MetMah.Views
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.DrawString("Пауза", new Font("Arial", 32),
-                Brushes.White, ClientSize.Width / 2 - 67, 25);
+                Brushes.White, ClientSize.Width / 2 - 70, 25);
         }
 
         protected override void OnLoad(EventArgs e)
