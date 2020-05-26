@@ -100,7 +100,7 @@ namespace MetMah.Views
         {
             e.Graphics.DrawImage(bitmaps["Stone.png"], 0, 0);
 
-            e.Graphics.TranslateTransform(0, 32);
+            e.Graphics.TranslateTransform(0, 50);
             var actions = game.Actions.OrderBy(x => GetPriority(x.Creature)).ToArray();
             foreach (var a in actions)
                 e.Graphics.DrawImage(bitmaps[GetImageFileName(a.Creature, a.Command.DeltaX)], a.Location);
@@ -110,7 +110,7 @@ namespace MetMah.Views
             e.Graphics.DrawString(scale, new Font("Arial", 16), Brushes.Green, 150, 4);
             e.Graphics.DrawString("Шкала терпения:", new Font("Arial", 12), Brushes.Green, 20, 6);
             progressBar.Value = game.PatienceScale > 0 ?
-                game.HeightCurrentLevel * game.WidthCurrentLevel * 2 - game.PatienceScale : 0;
+                game.HeightCurrentLevel * game.WidthCurrentLevel - game.PatienceScale : 0;
 
             if (game.Stage == GameStage.ActivatedDialogue)
             {
@@ -191,7 +191,7 @@ namespace MetMah.Views
         {
             if (!game.IsDialogueActivated)
                 Focus();
-            progressBar.Maximum = game.WidthCurrentLevel * game.HeightCurrentLevel * 2 + 1;
+            progressBar.Maximum = game.WidthCurrentLevel * game.HeightCurrentLevel + 1;
             if (tickCount == 0)
             {
                 game.BeginAct();

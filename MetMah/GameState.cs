@@ -30,7 +30,7 @@ namespace MetMah
             Levels = levels.ToArray();
             CurrentLevel = Levels[0];
             Actions = new List<CreatureAction>();
-            PatienceScale = CurrentLevel.Height * CurrentLevel.Width * 2;
+            PatienceScale = CurrentLevel.Height * CurrentLevel.Width;
         }
 
         public GameState()
@@ -86,7 +86,7 @@ namespace MetMah
             }
             if (IsDialogueActivated)
             {
-                PatienceScale -= 2;
+                PatienceScale -= 1;
                 var index = (int)CurrentLevel.KeyPressed - 49;
                 if (index < 0 || index >= CurrentDialogue.CountAnswers)
                     return;
@@ -98,7 +98,7 @@ namespace MetMah
                 }
                 else
                 {
-                    PatienceScale -= 50;
+                    PatienceScale -= 10;
                     SetKeyPressed(Keys.None);
                 }
                 return;
@@ -114,7 +114,7 @@ namespace MetMah
                 {
                     IndexCurrentLevel += 1;
                     CurrentLevel = Levels[IndexCurrentLevel];
-                    PatienceScale = CurrentLevel.Height * CurrentLevel.Width * 2;
+                    PatienceScale = CurrentLevel.Height * CurrentLevel.Width;
                 }
                 else
                 {
@@ -214,7 +214,7 @@ TTTTTTTTTTTTTTTTT";
             Actions = new List<CreatureAction>();
             IsGameOver = false;
             CurrentDialogue = null;
-            PatienceScale = CurrentLevel.Height * CurrentLevel.Width * 2;
+            PatienceScale = CurrentLevel.Height * CurrentLevel.Width;
 
             ChangeStage(GameStage.NotStarted);
         }
