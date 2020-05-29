@@ -32,7 +32,7 @@ namespace MetMah.Views
                 };
                 newButton.GotFocus += (sender, e) => (sender as Button).BackColor = Color.Black;
                 newButton.LostFocus += (sender, e) => (sender as Button).BackColor = Color.LightSlateGray;
-                newButton.Location = new Point(150 * i, 30);
+                newButton.Location = new Point(50 + 150 * i, 30);
                 var j = i;
                 newButton.Click += (sender, e) => SetKey(j);
                 buttons[i] = newButton;
@@ -43,7 +43,7 @@ namespace MetMah.Views
         }
 
         protected override void OnPaint(PaintEventArgs e) =>
-            e.Graphics.DrawString(game.CurrentDialogue.Text, new Font("Arial", 16), Brushes.Green, 0, 0);
+            e.Graphics.DrawString(game.CurrentDialogue.Text, new Font("Arial", 16), Brushes.Green, 50, 0);
 
         protected override void OnLoad(EventArgs e)
         {

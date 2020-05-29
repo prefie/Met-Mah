@@ -114,7 +114,7 @@ namespace MetMah.Views
 
             if (game.Stage == GameStage.ActivatedDialogue)
             {
-                e.Graphics.FillRectangle(Brushes.LightGray, 0, 32, 32 * Size.Width, 32 * Size.Height + 32);
+                e.Graphics.FillRectangle(Brushes.LightGray, 0, 32, 50 * Size.Width, 50 * Size.Height + 50);
                 var message = "Вы наткнулись на студента!";
                 e.Graphics.DrawString(message, new Font("Arial", 48),
                     Brushes.Green, Size.Width / 2 - message.Length * 16, Size.Height / 2 - 32);
