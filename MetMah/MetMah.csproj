@@ -68,6 +68,7 @@
     <Compile Include="Additionally\Status.cs" />
     <Compile Include="Creature\Beer.cs" />
     <Compile Include="Creature\CleverStudent.cs" />
+    <Compile Include="Creature\Door.cs" />
     <Compile Include="Creature\ICreature.cs" />
     <Compile Include="Creature\Player.cs" />
     <Compile Include="Creature\Python.cs" />
@@ -126,27 +127,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ship.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Beer.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Player.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Snake.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Stairs.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Student.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Terrain.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

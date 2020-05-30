@@ -44,6 +44,8 @@ namespace MetMah.Additionally
                                                 "Maybe"));
                 case 'B':
                     return new Beer();
+                case 'D':
+                    return new Door();
                 case ' ':
                     return null;
                 default:

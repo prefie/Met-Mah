@@ -21,6 +21,7 @@ namespace MetMah
         public int WidthCurrentLevel => CurrentLevel.Width;
         public int HeightCurrentLevel => CurrentLevel.Height;
         public GameStage Stage { get; private set; }
+        private bool changeLevel;
 
         public event Action<GameStage> StageChanged;
 
@@ -108,8 +109,9 @@ namespace MetMah
                 for (var y = 0; y < CurrentLevel.Height; y++)
                     CurrentLevel.SetCreatures(x, y, SelectWinnerCandidatePerLocation(creaturesPerLocation, x, y));
 
-            if (CurrentLevel.IsOver)
+            if (changeLevel)
             {
+                changeLevel = false;
                 if (IndexCurrentLevel + 1 < Levels.Length)
                 {
                     IndexCurrentLevel += 1;
@@ -158,6 +160,12 @@ namespace MetMah
                 CurrentDialogue = (candidate as CleverStudent).Dialogue;
                 ChangeStage(GameStage.ActivatedDialogue);
             }
+
+            if (candidate is Door && rival is Player)
+            {
+                if (candidate.GetStatus() == Status.Active)
+                    changeLevel = true;
+            }
         }
 
         private List<ICreature>[,] GetCandidatesPerLocation()
@@ -198,10 +206,10 @@ TTTTTTTTLTTTTTTTTTTTTLL  TTT
 TTTLTT                      
    LTTTTTTTTTTTTTTTTTTTTTTTT
    L                        
-                       BBB  
+                       BBB D
 TTTTTTTTTTTTTTTTTTTTTTTTTTTT";
             var str1 = @"
-P     S      B   
+P     S      B  D
 TTTTTTTTTTTTTTTTT";
             var level1 = new Level(str);
             var level = new Level(str1);

@@ -158,6 +158,14 @@ namespace MetMah.Views
                 return "CleverStudentRight.png";
             }
 
+            if (creature is Door)
+            {
+                if (creature.GetStatus() == Status.Active)
+                    return "DoorActive.png";
+                else
+                    return "DoorInactive.png";
+            }
+
             return null;
         }
 
@@ -183,6 +191,9 @@ namespace MetMah.Views
 
             if (creature is CleverStudent)
                 return 2;
+
+            if (creature is Door)
+                return 5;
 
             return 0;
         }
