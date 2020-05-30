@@ -24,8 +24,8 @@ namespace Tests
         [TestCase(new[] { Keys.Right, Keys.Right, Keys.Down, Keys.Down, Keys.Left, Keys.Left }, 0, 2)]
         public void GameState_PlayerShouldMoveCorrect(Keys[] keys, int finishX, int finishY)
         {
-            var levelOne = new Level("P  \r\nTTL\r\nB L\r\nTTT");
-            var levelTwo = new Level("P B  \r\nTTTTL\r\n    L\r\nC S L\r\nTTTTT");
+            var levelOne = new Level("P  \r\nTTL\r\nB L\r\nTTT", 0);
+            var levelTwo = new Level("P B  \r\nTTTTL\r\n    L\r\nC S L\r\nTTTTT", 0);
             var levels = new List<Level> { levelOne, levelTwo };
             var gameState = new GameState(levels);
 
@@ -44,8 +44,8 @@ namespace Tests
         [Test]
         public void GameState_NotShouldGoNextLevel_AfterTakeLastBeer()
         {
-            var levelOne = new Level("PB \r\nTTT");
-            var levelTwo = new Level("P  \r\nTTT");
+            var levelOne = new Level("PB \r\nTTT", 0);
+            var levelTwo = new Level("P  \r\nTTT", 0);
             var levels = new List<Level> { levelOne, levelTwo };
             var gameState = new GameState(levels);
             gameState.IndexCurrentLevel.Should().Be(0);
@@ -58,7 +58,7 @@ namespace Tests
         [Test]
         public void GameState_CleverStudentShouldReachPlayer()
         {
-            var levels = new List<Level> { new Level("P B \r\nTTTL\r\n  CL\r\nTTTT") };
+            var levels = new List<Level> { new Level("P B \r\nTTTL\r\n  CL\r\nTTTT", 0) };
             var gameState = new GameState(levels);
             for (int i = 0; i < 6; i++)
             {
@@ -74,8 +74,8 @@ namespace Tests
         [Test]
         public void GameState_ShouldFinishGame_WhenLevelsExpire()
         {
-            var levelOne = new Level("PD \r\nTTT");
-            var levelTwo = new Level("PD \r\nTTT");
+            var levelOne = new Level("PD \r\nTTT", 0);
+            var levelTwo = new Level("PD \r\nTTT", 0);
             var levels = new List<Level> { levelOne, levelTwo };
             var gameState = new GameState(levels);
             for (int i = 0; i < 2; i++)
@@ -88,20 +88,28 @@ namespace Tests
         }
 
         [Test]
-        public void GameState_PlayerShouldPutPythonInCell()
+        public void GameState_PlayerShouldPutPythonInCell_AfterTakeBeer()
         {
-            var levels = new List<Level> { new Level("P B\r\nTTT") };
+            var levels = new List<Level> { new Level("PB \r\nTTT", 0) };
             var gameState = new GameState(levels);
             gameState.SetKeyPressed(Keys.R);
             gameState.BeginAct();
             gameState.EndAct();
-            gameState.CurrentLevel.GetCreatures(0, 0).Any(x => x is Python).Should().BeTrue();
+            gameState.CurrentLevel.GetCreatures(0, 0).Any(x => x is Python).Should().BeFalse();
+            gameState.SetKeyPressed(Keys.Right);
+            gameState.BeginAct();
+            gameState.EndAct();
+
+            gameState.SetKeyPressed(Keys.R);
+            gameState.BeginAct();
+            gameState.EndAct();
+            gameState.CurrentLevel.GetCreatures(1, 0).Any(x => x is Python).Should().BeTrue();
         }
 
         [Test]
         public void GameState_ShouldActivateDialogue_WhenConflictPlayerAndStudent()
         {
-            var levels = new List<Level> { new Level("PCB\r\nTTT") };
+            var levels = new List<Level> { new Level("PCB\r\nTTT", 0) };
             var gameState = new GameState(levels);
             gameState.BeginAct();
             gameState.EndAct();
@@ -111,7 +119,7 @@ namespace Tests
         [Test]
         public void GameState_ShouldNotUpdateActions_WhenActivatedDialogue()
         {
-            var levels = new List<Level> { new Level("PCB\r\nTTT") };
+            var levels = new List<Level> { new Level("PCB\r\nTTT", 0) };
             var gameState = new GameState(levels);
             gameState.BeginAct();
             gameState.EndAct();
@@ -128,7 +136,7 @@ namespace Tests
         [Test]
         public void GameState_AllCreaturesShouldMove_AfterDeactivatedDialogue()
         {
-            var levels = new List<Level> { new Level("PCB \r\nTTTL\r\nS CL\r\nTTTT") };
+            var levels = new List<Level> { new Level("PCB \r\nTTTL\r\nS CL\r\nTTTT", 0) };
             var gameState = new GameState(levels);
             gameState.BeginAct();
             gameState.EndAct();
@@ -151,7 +159,7 @@ namespace Tests
         [Test]
         public void GameState_GameShouldOver_WhenPatienceScaleLessZero()
         {
-            var levels = new List<Level> { new Level("PCB \r\nTTTL\r\nS CL\r\nTTTT") };
+            var levels = new List<Level> { new Level("PCB \r\nTTTL\r\nS CL\r\nTTTT", 0) };
             var gameState = new GameState(levels);
             for (int i = 0; i < gameState.HeightCurrentLevel * gameState.WidthCurrentLevel * 2; i++)
             {

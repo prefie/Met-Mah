@@ -7,11 +7,45 @@ namespace MetMah.Creature
     public class Player : ICreature
     {
         public Status Status { get; private set; }
+        public readonly int PlayerNumber;
+        private int numberBeer;
+        private int timeIgnor;
+
+        public Player(int numberPlayer)
+        {
+            PlayerNumber = numberPlayer;
+        }
 
         public Move Act(Level level, int x, int y)
         {
-            if (level.KeyPressed == Keys.R && !level.CheckCreature(x, y, typeof(Python)))
-                level.AddCreature(x, y, new Python());
+            if (PlayerNumber == 1 && timeIgnor > 0)
+            {
+                timeIgnor -= 1;
+                if (timeIgnor == 0)
+                    Status = Status.Active;
+            }
+
+            if (level.KeyPressed == Keys.R)
+            {
+                if (PlayerNumber == 0 && numberBeer > 0 && !level.CheckCreature(x, y, typeof(Python)))
+                {
+                    level.AddCreature(x, y, new Python());
+                    numberBeer -= 1;
+                }
+
+                if (PlayerNumber == 1 && numberBeer > 0)
+                {
+                    Status = Status.Inactive;
+                    timeIgnor = 15;
+                }
+
+                if (PlayerNumber == 3 && numberBeer > 0 && !level.CheckCreature(x, y, typeof(Device)))
+                {
+                    level.AddCreature(x, y, new Device());
+                    numberBeer -= 1;
+                }
+            }
+
             if (y + 1 <= level.Height - 1 &&
                 !(level.CheckCreature(x, y + 1, typeof(Terrain)) ||
                 level.CheckCreature(x, y + 1, typeof(Stairs))))
@@ -39,10 +73,13 @@ namespace MetMah.Creature
 
         public Status GetStatus() => Status;
 
-        public bool IsConflict(ICreature conflictedObject) =>
-            conflictedObject is Student ||
-            conflictedObject is CleverStudent ||
-            conflictedObject is Beer;
+        public bool IsConflict(ICreature conflictedObject)
+        {
+            if (conflictedObject is Beer)
+                numberBeer += 1;
+
+            return false;
+        }
 
         public void SetStatus(Status status) => Status = status;
     }

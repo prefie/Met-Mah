@@ -1,14 +1,19 @@
 ﻿using MetMah.Creature;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace MetMah.Additionally
 {
     public static class MapCreator
     {
-        public static List<ICreature>[,] CreateMap(string map, string separator = "\r\n")
+        private static List<Dialogue> dialogues;
+        private static readonly Random random = new Random();
+
+        public static List<ICreature>[,] CreateMap(string map, int numberPlayer, string separator = "\r\n")
         {
+            dialogues = FillDialogues();
             var rows = map.Split(new[] { separator, "\n" }, StringSplitOptions.RemoveEmptyEntries);
             if (rows.Select(z => z.Length).Distinct().Count() != 1)
                 throw new Exception($"Wrong map '{map}'");
@@ -16,7 +21,7 @@ namespace MetMah.Additionally
             for (var x = 0; x < rows[0].Length; x++)
                 for (var y = 0; y < rows.Length; y++)
                 {
-                    var creature = CreateCreatureBySymbol(rows[y][x]);
+                    var creature = CreateCreatureBySymbol(rows[y][x], numberPlayer);
                     result[x, y] = new List<ICreature>();
                     if (creature != null)
                         result[x, y].Add(creature);
@@ -24,24 +29,26 @@ namespace MetMah.Additionally
             return result;
         }
 
-        private static ICreature CreateCreatureBySymbol(char symbol)
+        private static ICreature CreateCreatureBySymbol(char symbol, int numberPlayer)
         {
             switch (symbol)
             {
                 case 'P':
-                    return new Player();
+                    return new Player(numberPlayer);
                 case 'T':
                     return new Terrain();
                 case 'L':
                     return new Stairs();
                 case 'S':
-                    return new Student(new Dialogue("Ой, я забыл, а где аквариум?",
-                                                new string[] { "Откуда мне знать?", "628а", "Иди отсюда" },
-                                                "628а"));
+                    var number = random.Next(dialogues.Count);
+                    var dialogue = dialogues[number];
+                    dialogues.RemoveAt(number);
+                    return new Student(dialogue);
                 case 'C':
-                    return new CleverStudent(new Dialogue("Do you love me?",
-                                                new string[] { "Yes", "No", "Maybe", "I don't know", "Help me" },
-                                                "Maybe"));
+                    number = random.Next(dialogues.Count);
+                    dialogue = dialogues[number];
+                    dialogues.RemoveAt(number);
+                    return new CleverStudent(dialogue);
                 case 'B':
                     return new Beer();
                 case 'D':
@@ -51,6 +58,33 @@ namespace MetMah.Additionally
                 default:
                     throw new Exception($"wrong character for ICreature {symbol}");
             }
+        }
+
+        private static List<Dialogue> FillDialogues()
+        {
+            var listDialogues = new List<Dialogue>();
+            var pathDialogues = new DirectoryInfo(@"Dialogues");
+            foreach (var e in pathDialogues.GetFiles("*.txt"))
+            {
+                var dialogueString = e.OpenText();
+                var question = dialogueString.ReadLine();
+                var indexCorrectAnswer = dialogueString.ReadLine();
+                if (question is null || indexCorrectAnswer is null)
+                    continue;
+
+                var correctAnswer = int.Parse(indexCorrectAnswer);
+                var answers = new List<string>();
+
+                var str = dialogueString.ReadLine();
+                while (str != null)
+                {
+                    answers.Add(str);
+                    str = dialogueString.ReadLine();
+                }
+                listDialogues.Add(new Dialogue(question, answers.ToArray(), correctAnswer));
+            }
+
+            return listDialogues;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace MetMah.Additionally
 
         public static SinglyLinkedList<Point> FindPaths(string textMap, Point start, Point finish)
         {
-            var map = MapCreator.CreateMap(textMap);
+            var map = MapCreator.CreateMap(textMap, 0);
             return FindPaths(map, start, finish);
         }
 

@@ -3,6 +3,7 @@ using MetMah.Creature;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -22,6 +23,7 @@ namespace MetMah
         public int HeightCurrentLevel => CurrentLevel.Height;
         public GameStage Stage { get; private set; }
         private bool changeLevel;
+        private int numberPlayer;
 
         public event Action<GameStage> StageChanged;
 
@@ -36,12 +38,17 @@ namespace MetMah
 
         public GameState()
         {
-            Initialize();
+
         }
 
         public void ChoiceCharacter() => ChangeStage(GameStage.ChoiceCharacter);
+        public void SetNumberPlayer(int numberPlayer) => this.numberPlayer = numberPlayer;
 
-        public void Start() => ChangeStage(GameStage.Play);
+        public void Start()
+        {
+            Initialize();
+            ChangeStage(GameStage.Play);
+        }
 
         public void SetKeyPressed(Keys key) => CurrentLevel.KeyPressed = key;
 
@@ -135,7 +142,7 @@ namespace MetMah
             var aliveCandidates = candidates.ToList();
             foreach (var candidate in candidates)
                 foreach (var rival in candidates)
-                    if (rival != candidate && candidate.IsConflict(rival))
+                    if (rival != candidate && candidate.IsConflict(rival) || candidate is Device)
                         ResolvingConflict(aliveCandidates, candidate, rival);
 
             return aliveCandidates;
@@ -143,6 +150,17 @@ namespace MetMah
 
         private void ResolvingConflict(List<ICreature> aliveCandidates, ICreature candidate, ICreature rival)
         {
+            if (candidate is Device)
+            {
+                var gadget = candidate as Device;
+                if (gadget.LifeTime < 1)
+                {
+                    foreach (var e in gadget.Students)
+                        e.SetStatus(Status.Active);
+                    aliveCandidates.Remove(candidate);
+                }
+            }
+
             if (candidate is Beer && rival is Player)
             {
                 aliveCandidates.Remove(candidate);
@@ -162,10 +180,7 @@ namespace MetMah
             }
 
             if (candidate is Door && rival is Player)
-            {
-                if (candidate.GetStatus() == Status.Active)
-                    changeLevel = true;
-            }
+                changeLevel = true;
         }
 
         private List<ICreature>[,] GetCandidatesPerLocation()
@@ -194,28 +209,14 @@ namespace MetMah
         public void Initialize()
         {
             var levels = new List<Level>();
-            string str = @"
-           TTTTT  SB  CTTTTT
-  P           L LTTTTTLTTTTT
-TTTLTTTTL  TTTLTT     L  TTT
-   L S  LLB   L       L  TTT
-TTTTTTTTLTTTTTTTTTTTTLL  TTT
-        L            TTTTTTT
-      S L S            B TTT
- B   LTTTTTTTTTTTTTTTTTTTTTT
-TTTLTT                      
-   LTTTTTTTTTTTTTTTTTTTTTTTT
-   L                        
-                       BBB D
-TTTTTTTTTTTTTTTTTTTTTTTTTTTT";
-            var str1 = @"
-P     S      B  D
-TTTTTTTTTTTTTTTTT";
-            var level1 = new Level(str);
-            var level = new Level(str1);
-            levels.Add(level);
-            levels.Add(level1);
-            Levels = levels.ToArray();
+            var pathLevels = new DirectoryInfo(@"Levels");
+            foreach (var e in pathLevels.GetFiles("*.txt"))
+            {
+                var levelString = e.OpenText().ReadToEnd();
+                levels.Add(new Level(levelString, numberPlayer));
+            }
+            var random = new Random();
+            Levels = levels.OrderBy(x => random.Next()).Take(1).ToArray();
 
             CurrentLevel = Levels[0];
             IndexCurrentLevel = 0;

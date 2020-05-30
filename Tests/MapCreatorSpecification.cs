@@ -13,21 +13,21 @@ namespace Tests
         [Test]
         public void MapCreator_ShouldThrowException_WhenMapEmpty()
         {
-            Assert.Catch(() => MapCreator.CreateMap(""));
+            Assert.Catch(() => MapCreator.CreateMap("", 0));
         }
 
         [Test]
         public void MapCreator_ShouldThrowException_WhenMapIncorrect()
         {
-            Assert.Catch(() => MapCreator.CreateMap(" \r\nTT"));
-            Assert.Catch(() => MapCreator.CreateMap("   \r\n  N"));
+            Assert.Catch(() => MapCreator.CreateMap(" \r\nTT", 0));
+            Assert.Catch(() => MapCreator.CreateMap("   \r\n  N", 0));
         }
 
         [Test]
         public void MapCreator_ShouldReturnCorrectMap_WhenAllCorrect()
         {
             var str = "P C\r\nTTT\r\nLLL\r\nSSS\r\nBBB\r\n";
-            var map = MapCreator.CreateMap(str);
+            var map = MapCreator.CreateMap(str, 0);
             foreach (var e in map)
                 Assert.IsTrue(e.Count < 2);
             Assert.IsTrue(map[0, 0].Any(x => x is Player));

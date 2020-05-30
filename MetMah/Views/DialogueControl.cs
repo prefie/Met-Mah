@@ -16,23 +16,26 @@ namespace MetMah.Views
             buttons = new Button[game.CurrentDialogue.CountAnswers];
 
             ClientSize = new Size(
-                32 * game.WidthCurrentLevel,
-                32 * game.HeightCurrentLevel + 32);
+                50 * 28,
+                32 * 14 + 32);
 
             var answers = game.CurrentDialogue.GetAnswers().ToList();
             Controls.Clear();
+            var font = new Font("Arial", 12);
             for (int i = 0; i < answers.Count; i++)
             {
                 var newButton = new Button
                 {
                     Text = answers[i],
-                    Size = new Size(140, 35),
+                    Font = font,
+                    Size = new Size(240, 50),
                     BackColor = Color.LightSlateGray,
                     ForeColor = Color.White
                 };
                 newButton.GotFocus += (sender, e) => (sender as Button).BackColor = Color.Black;
                 newButton.LostFocus += (sender, e) => (sender as Button).BackColor = Color.LightSlateGray;
-                newButton.Location = new Point(50 + 150 * i, 30);
+                newButton.Location = new Point(50 + 250 * i, 50);
+                newButton.Location = new Point((Width - 250 * answers.Count) / 2 + 250 * i, 50);
                 var j = i;
                 newButton.Click += (sender, e) => SetKey(j);
                 buttons[i] = newButton;
@@ -42,8 +45,15 @@ namespace MetMah.Views
             ActiveControl = Controls[0];
         }
 
-        protected override void OnPaint(PaintEventArgs e) =>
-            e.Graphics.DrawString(game.CurrentDialogue.Text, new Font("Arial", 16), Brushes.Green, 50, 0);
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            var text = game.CurrentDialogue.Text.Split('.');
+            var font = new Font("Arial", 16);
+            for (int i = 0; i < text.Length; i++)
+            {
+                e.Graphics.DrawString(text[i], font, Brushes.Green, (Width - text[i].Length * (font.Size - 4)) / 2, 20 * i);
+            }
+        }
 
         protected override void OnLoad(EventArgs e)
         {

@@ -44,7 +44,7 @@ namespace MetMah.Views
                 50 * 28,
                 50 * 13 + 50);
 
-            timer = new Timer { Interval = 20 };
+            timer = new Timer { Interval = 15 };
             timer.Tick += TimerTick;
             timer.Tick += (sender, args) =>
             {
@@ -127,9 +127,17 @@ namespace MetMah.Views
         {
             if (creature is Player)
             {
+                var numberPlayer = namePlayer[0];
+                if (numberPlayer == '1' && creature.GetStatus() == Status.Inactive)
+                {
+                    if (DeltaX == -1)
+                        return "1PlayerLeftInactive.png";
+                    return "1PlayerRightInactive.png";
+                }
+
                 if (DeltaX == -1)
-                    return namePlayer[0] + "PlayerLeft.png";
-                return namePlayer[0] + "PlayerRight.png";
+                    return numberPlayer + "PlayerLeft.png";
+                return numberPlayer + "PlayerRight.png";
             }
 
             if (creature is Beer)
@@ -166,6 +174,9 @@ namespace MetMah.Views
                     return "DoorInactive.png";
             }
 
+            if (creature is Device)
+                return "Device.png";
+
             return null;
         }
 
@@ -193,6 +204,9 @@ namespace MetMah.Views
                 return 2;
 
             if (creature is Door)
+                return 5;
+
+            if (creature is Device)
                 return 5;
 
             return 0;

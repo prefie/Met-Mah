@@ -46,8 +46,8 @@ namespace MetMah.Creature
         public bool IsConflict(ICreature conflictedObject)
         {
             if (Status == Status.Active &&
-                (conflictedObject is Player ||
-                (conflictedObject is Python && conflictedObject.GetStatus() == Status.Active)))
+                (conflictedObject is Player || conflictedObject is Python) &&
+                conflictedObject.GetStatus() == Status.Active)
             {
                 if (conflictedObject is Python)
                     conflictedObject.SetStatus(Status.Inactive);

@@ -26,7 +26,13 @@ namespace MetMah.Creature
 
         public Status GetStatus() => Status;
 
-        public bool IsConflict(ICreature conflictedObject) => conflictedObject is Player;
+        public bool IsConflict(ICreature conflictedObject)
+        {
+            if (Status == Status.Active)
+                return conflictedObject is Player;
+
+            return false;
+        }
 
         public void SetStatus(Status status) => Status = status;
     }

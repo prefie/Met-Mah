@@ -17,7 +17,7 @@ namespace Tests
         [SetUp]
         public void SetUp()
         {
-            level = new Level(" S   \r\nTTTTT\r\n C   \r\nTTTLT\r\n  PLB\r\nTTTTT");
+            level = new Level(" S   \r\nTTTTT\r\n C   \r\nTTTLT\r\n  PLB\r\nTTTTT", 0);
             dialogue = new Dialogue("", new string[] { "" }, 0);
         }
 
@@ -62,7 +62,7 @@ namespace Tests
         [Test]
         public void ActCleverStudent_ShouldReturnZeroOffset_WhenPlayerNotFound()
         {
-            var testLevel = new Level(" C   \r\nTTTTT\r\n   P \r\nTTTTT");
+            var testLevel = new Level(" C   \r\nTTTTT\r\n   P \r\nTTTTT", 0);
             var point = new Point(1, 0);
             var cleverStudent = testLevel.GetCreatures(point.X, point.Y).FirstOrDefault();
             cleverStudent.Should().NotBeNull();
@@ -112,15 +112,15 @@ namespace Tests
 
         [Test]
         public void IsConflict_SholdReturnTrue_WhenConflictPlayerAndStudent() =>
-            CheckConflict(new Student(dialogue), new Player());
+            CheckConflict(new Student(dialogue), new Player(0));
 
         [Test]
         public void IsConflict_SholdReturnTrue_WhenConflictPlayerAndCleverStudent() =>
-            CheckConflict(new CleverStudent(dialogue), new Player());
+            CheckConflict(new CleverStudent(dialogue), new Player(0));
 
         [Test]
         public void IsConflict_SholdReturnTrue_WhenConflictPlayerAndBeer() =>
-            CheckConflict(new Beer(), new Player());
+            CheckConflict(new Beer(), new Player(0));
 
         [Test]
         public void GetStatus_ShouldReturnActiveForAll_AfterInitialization()
@@ -134,7 +134,7 @@ namespace Tests
         public void GetStatusStudent_ShouldReturnInactive_AfterConflictWithPlayer()
         {
             var student = new Student(dialogue);
-            student.IsConflict(new Player());
+            student.IsConflict(new Player(0));
             student.GetStatus().Should().Be(Status.Inactive);
         }
 
@@ -149,7 +149,7 @@ namespace Tests
         [Test]
         public void MoveStudent_ShouldReturnFall_WhenBottomEmpty()
         {
-            var testLevel = new Level("S\r\n \r\n \r\nT");
+            var testLevel = new Level("S\r\n \r\n \r\nT", 0);
             var student = testLevel.GetCreatures(0, 0).First();
             student.Act(testLevel, 0, 0).DeltaY.Should().Be(1);
         }
@@ -157,7 +157,7 @@ namespace Tests
         [Test]
         public void MoveCleverStudent_ShouldReturnFall_WhenBottomEmpty()
         {
-            var testLevel = new Level("C\r\n \r\nT");
+            var testLevel = new Level("C\r\n \r\nT", 0);
             var cleverStudent = testLevel.GetCreatures(0, 0).First();
             cleverStudent.Act(testLevel, 0, 0).DeltaY.Should().Be(1);
         }
@@ -165,18 +165,18 @@ namespace Tests
         [Test]
         public void MovePlayer_ShouldReturnFall_WhenBottomEmpty()
         {
-            var testLevel = new Level("P\r\n \r\n \r\nT");
+            var testLevel = new Level("P\r\n \r\n \r\nT", 0);
             var player = testLevel.GetCreatures(0, 0).First();
             player.Act(testLevel, 0, 0).DeltaY.Should().Be(1);
         }
 
         [Test]
-        public void MovePlayer_ShouldGetPythonInCell_WhenActivateSuperpower()
+        public void MovePlayer_NotShouldGetPythonInCell_WhenNoBeer()
         {
             level.KeyPressed = Keys.R;
             var student = level.GetCreatures(2, 4).First();
             student.Act(level, 2, 4);
-            level.GetCreatures(2, 4).Any(x => x is Python).Should().BeTrue();
+            level.GetCreatures(2, 4).Any(x => x is Python).Should().BeFalse();
         }
 
         private void CheckOffset(ICreature creature, int x, int y, int deltaX, int deltaY)
@@ -189,7 +189,6 @@ namespace Tests
         private void CheckConflict(ICreature creature1, ICreature creature2)
         {
             creature1.IsConflict(creature2).Should().BeTrue();
-            creature2.IsConflict(creature1).Should().BeTrue();
         }
     }
 }

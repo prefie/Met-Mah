@@ -65,6 +65,8 @@ namespace MetMah.Views
         {
             var box = sender as PictureBox;
             PlayerName = pictures.Where(x => x == box).Select(x => x.Name).FirstOrDefault();
+            var a = pictures.IndexOf(box);
+            game.SetNumberPlayer(a);
             game.Start();
         }
 

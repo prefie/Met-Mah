@@ -15,7 +15,7 @@ namespace Tests
         [SetUp]
         public void SetUp()
         {
-            level = new Level("   \r\nTTL\r\nCSB\r\nTTB");
+            level = new Level("   \r\nTTL\r\nCSB\r\nTTB", 0);
             dialogue = new Dialogue("", new string[] { "" }, 0);
         }
 
@@ -36,7 +36,7 @@ namespace Tests
         [Test]
         public void GetCreature_ShouldReturnAddedCreature_AfterAddCreatureInEmptyCell()
         {
-            var player = new Player();
+            var player = new Player(0);
             var student = new Student(dialogue);
             level.AddCreature(0, 0, player);
             level.GetCreatures(0, 0).Should().HaveCount(1).And.AllBeOfType(typeof(Player));
@@ -74,7 +74,7 @@ namespace Tests
         [Test]
         public void CountBeer_ShouldReturnZero_IfBeerNotFound()
         {
-            var testLevel = new Level("   \r\nTTT");
+            var testLevel = new Level("   \r\nTTT", 0);
             testLevel.DeemBeer().Should().Be(0);
         }
 
@@ -111,7 +111,7 @@ namespace Tests
         [Test]
         public void SetCreatures_ShouldReplaceAllCreaturesInCell()
         {
-            var newCreatures = new List<ICreature> { new Player(), new Beer(), new Stairs() };
+            var newCreatures = new List<ICreature> { new Player(0), new Beer(), new Stairs() };
             level.SetCreatures(0, 1, newCreatures);
             level.GetCreatures(0, 1).Should().BeEquivalentTo(newCreatures);
         }

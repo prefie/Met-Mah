@@ -16,9 +16,9 @@ namespace MetMah.Additionally
         public readonly string TextInitiallyMap;
         public int CountBeer { get; set; }
 
-        public Level(string map)
+        public Level(string map, int numberPlayer)
         {
-            Map = MapCreator.CreateMap(map);
+            Map = MapCreator.CreateMap(map, numberPlayer);
             Width = Map.GetLength(0);
             Height = Map.GetLength(1);
             TextInitiallyMap = map;

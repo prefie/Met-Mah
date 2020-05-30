@@ -68,6 +68,7 @@
     <Compile Include="Additionally\Status.cs" />
     <Compile Include="Creature\Beer.cs" />
     <Compile Include="Creature\CleverStudent.cs" />
+    <Compile Include="Creature\Device.cs" />
     <Compile Include="Creature\Door.cs" />
     <Compile Include="Creature\ICreature.cs" />
     <Compile Include="Creature\Player.cs" />
