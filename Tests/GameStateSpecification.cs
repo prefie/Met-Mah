@@ -42,7 +42,7 @@ namespace Tests
         }
 
         [Test]
-        public void GameState_ShouldGoNextLevel_AfterTakeLastBeer()
+        public void GameState_NotShouldGoNextLevel_AfterTakeLastBeer()
         {
             var levelOne = new Level("PB \r\nTTT");
             var levelTwo = new Level("P  \r\nTTT");
@@ -52,7 +52,7 @@ namespace Tests
             gameState.SetKeyPressed(Keys.Right);
             gameState.BeginAct();
             gameState.EndAct();
-            gameState.IndexCurrentLevel.Should().Be(1);
+            gameState.IndexCurrentLevel.Should().Be(0);
         }
 
         [Test]
@@ -74,8 +74,8 @@ namespace Tests
         [Test]
         public void GameState_ShouldFinishGame_WhenLevelsExpire()
         {
-            var levelOne = new Level("PB \r\nTTT");
-            var levelTwo = new Level("PB \r\nTTT");
+            var levelOne = new Level("PD \r\nTTT");
+            var levelTwo = new Level("PD \r\nTTT");
             var levels = new List<Level> { levelOne, levelTwo };
             var gameState = new GameState(levels);
             for (int i = 0; i < 2; i++)
