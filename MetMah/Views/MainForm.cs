@@ -9,7 +9,6 @@ namespace MetMah.Views
     public partial class MainForm : Form
     {
         private readonly GameState game;
-        private readonly TableLayoutPanel table;
         private readonly PlayControl playControl;
         private StartControl startControl;
         private FinishedControl finishedControl;
@@ -24,34 +23,21 @@ namespace MetMah.Views
 
             game = new GameState();
             game.StageChanged += Game_OnStageChanged;
-
-            table = new TableLayoutPanel();
             startControl = new StartControl();
             playControl = new PlayControl(game);
             finishedControl = new FinishedControl();
             dialogueControl = new DialogueControl();
             choiceControl = new ChoiceCharacterControl();
-
-            table.ColumnCount = 3;
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 28 * 50));
-            table.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            table.RowCount = 2;
-            table.RowStyles.Add(new RowStyle(SizeType.Absolute, 14 * 50 + 50));
-            table.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-
-            table.Controls.Add(playControl, 1, 0);
-            table.Dock = DockStyle.Fill;
+            Controls.Add(playControl);
 
             ClientSizeChanged += HandleResize;
-
-            Controls.Add(table);
             ShowStartScreen();
         }
 
         protected override void OnLoad(EventArgs e)
         {
-            MinimumSize = new Size(50 * 28, 50 * 14 + 210);
+            MinimumSize = new Size(50 * 28, 50 * 14 + 39);
+            MaximumSize = new Size(50 * 28, 50 * 14 + 39);
             base.OnLoad(e);
             Text = "Escape from MetMah";
             DoubleBuffered = true;
@@ -108,9 +94,9 @@ namespace MetMah.Views
         private void ShowStartScreen()
         {
             HideScreens();
-            table.Controls.Remove(startControl);
+            Controls.Remove(startControl);
             startControl = new StartControl();
-            table.Controls.Add(startControl, 1, 0);
+            Controls.Add(startControl);
             startControl.Configure(game);
             startControl.Show();
         }
@@ -118,9 +104,9 @@ namespace MetMah.Views
         private void ShowChoiceCharacterScreen()
         {
             HideScreens();
-            table.Controls.Remove(choiceControl);
+            Controls.Remove(choiceControl);
             choiceControl = new ChoiceCharacterControl();
-            table.Controls.Add(choiceControl, 1, 0);
+            Controls.Add(choiceControl);
             choiceControl.Configure(game);
             choiceControl.Show();
         }
@@ -134,9 +120,9 @@ namespace MetMah.Views
 
         private void ShowDialogueScreen()
         {
-            table.Controls.Remove(dialogueControl);
+            playControl.Controls.Remove(dialogueControl);
             dialogueControl = new DialogueControl();
-            table.Controls.Add(dialogueControl, 1, 1);
+            playControl.Controls.Add(dialogueControl);
             dialogueControl.Configure(game);
             dialogueControl.Show();
         }
@@ -144,9 +130,9 @@ namespace MetMah.Views
         private void ShowFinishedScreen()
         {
             HideScreens();
-            table.Controls.Remove(finishedControl);
+            Controls.Remove(finishedControl);
             finishedControl = new FinishedControl();
-            table.Controls.Add(finishedControl, 1, 0);
+            Controls.Add(finishedControl);
             finishedControl.Configure(game);
             finishedControl.Show();
         }

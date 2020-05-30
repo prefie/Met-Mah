@@ -17,7 +17,10 @@ namespace MetMah.Views
 
             ClientSize = new Size(
                 50 * 28,
-                32 * 14 + 32);
+                150);
+
+            Location = new Point(0, 50 * 7 / 2 + 75);
+            BackColor = Color.FromArgb(160, Color.Black);
 
             var answers = game.CurrentDialogue.GetAnswers().ToList();
             Controls.Clear();
@@ -35,7 +38,7 @@ namespace MetMah.Views
                 newButton.GotFocus += (sender, e) => (sender as Button).BackColor = Color.Black;
                 newButton.LostFocus += (sender, e) => (sender as Button).BackColor = Color.LightSlateGray;
                 newButton.Location = new Point(50 + 250 * i, 50);
-                newButton.Location = new Point((Width - 250 * answers.Count) / 2 + 250 * i, 50);
+                newButton.Location = new Point((Width - 250 * answers.Count) / 2 + 250 * i, 70);
                 var j = i;
                 newButton.Click += (sender, e) => SetKey(j);
                 buttons[i] = newButton;
@@ -51,7 +54,7 @@ namespace MetMah.Views
             var font = new Font("Arial", 16);
             for (int i = 0; i < text.Length; i++)
             {
-                e.Graphics.DrawString(text[i], font, Brushes.Green, (Width - text[i].Length * (font.Size - 4)) / 2, 20 * i);
+                e.Graphics.DrawString(text[i], font, Brushes.White, (Width - text[i].Length * (font.Size - 4)) / 2, 15 + 20 * i);
             }
         }
 

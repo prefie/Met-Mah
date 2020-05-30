@@ -17,7 +17,7 @@ namespace MetMah.Views
             this.game = game;
             ClientSize = new Size(
                 50 * 28,
-                50 * 14);
+                700);
 
             var font = new Font("Arial", 16);
 

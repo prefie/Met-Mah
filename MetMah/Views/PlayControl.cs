@@ -34,8 +34,8 @@ namespace MetMah.Views
             Controls.Add(progressBar);
 
             PreviewKeyDown += NewPreviewKeyDown;
-
             BackgroundImage = Image.FromFile(@"Images\Backgrounds\LightBackground.png");
+            BackgroundImageLayout = ImageLayout.Center;
             var imagesDirectory = new DirectoryInfo(@"Images\Creatures");
             foreach (var e in imagesDirectory.GetFiles("*.png"))
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
@@ -44,7 +44,7 @@ namespace MetMah.Views
                 50 * 28,
                 50 * 13 + 50);
 
-            timer = new Timer { Interval = 15 };
+            timer = new Timer { Interval = 20 };
             timer.Tick += TimerTick;
             timer.Tick += (sender, args) =>
             {
@@ -111,16 +111,6 @@ namespace MetMah.Views
             e.Graphics.DrawString("Шкала терпения:", new Font("Arial", 12), Brushes.Green, 20, 6);
             progressBar.Value = game.PatienceScale > 0 ?
                 game.HeightCurrentLevel * game.WidthCurrentLevel - game.PatienceScale : 0;
-
-            if (game.Stage == GameStage.ActivatedDialogue)
-            {
-                e.Graphics.FillRectangle(Brushes.LightGray, 0, 32, 50 * Size.Width, 50 * Size.Height + 50);
-                var message = "Вы наткнулись на студента!";
-                e.Graphics.DrawString(message, new Font("Arial", 48),
-                    Brushes.Green, Size.Width / 2 - message.Length * 16, Size.Height / 2 - 32);
-                e.Graphics.DrawString("Придётся отвечать на его вопрос ↓", new Font("Arial", 24),
-                    Brushes.Green, Size.Width / 2 - message.Length * 16, Size.Height / 2 + 40);
-            }
         }
 
         private string GetImageFileName(ICreature creature, int DeltaX)

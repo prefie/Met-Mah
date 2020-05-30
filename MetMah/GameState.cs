@@ -94,7 +94,7 @@ namespace MetMah
             }
             if (IsDialogueActivated)
             {
-                PatienceScale -= 1;
+                PatienceScale -= 3;
                 var index = (int)CurrentLevel.KeyPressed - 49;
                 if (index < 0 || index >= CurrentDialogue.CountAnswers)
                     return;
@@ -216,7 +216,7 @@ namespace MetMah
                 levels.Add(new Level(levelString, numberPlayer));
             }
             var random = new Random();
-            Levels = levels.OrderBy(x => random.Next()).Take(1).ToArray();
+            Levels = levels.OrderBy(x => random.Next()).Take(2).ToArray();
 
             CurrentLevel = Levels[0];
             IndexCurrentLevel = 0;
