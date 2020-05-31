@@ -51,7 +51,8 @@ namespace MetMah.Creature
 
             if (y + 1 <= level.Height - 1 &&
                 !(level.CheckCreature(x, y + 1, typeof(Terrain)) ||
-                level.CheckCreature(x, y + 1, typeof(Stairs))))
+                level.CheckCreature(x, y + 1, typeof(Stairs)) ||
+                level.CheckCreature(x, y, typeof(Stairs))))
                 return new Move { DeltaY = 1 };
 
             if (level.KeyPressed == Keys.Up && y - 1 >= 0 &&
@@ -60,7 +61,7 @@ namespace MetMah.Creature
                 return new Move { DeltaY = -1 };
 
             if (level.KeyPressed == Keys.Down && y + 1 <= level.Height - 1 &&
-                level.CheckCreature(x, y + 1, typeof(Stairs)))
+                (level.CheckCreature(x, y + 1, typeof(Stairs)) || !level.CheckCreature(x, y + 1, typeof(Terrain))))
                 return new Move { DeltaY = 1 };
 
             if (level.KeyPressed == Keys.Left && x - 1 >= 0 &&

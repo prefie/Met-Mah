@@ -216,7 +216,7 @@ namespace MetMah
                 levels.Add(new Level(levelString, NumberPlayer));
             }
             var random = new Random();
-            Levels = levels.OrderBy(x => random.Next()).Take(2).ToArray();
+            Levels = levels.OrderBy(x => random.Next()).Take(6).ToArray();
 
             CurrentLevel = Levels[0];
             IndexCurrentLevel = 0;

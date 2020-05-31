@@ -1,2 +1,10 @@
-PB     D  B
-TTTTTTTTTTT
+PB     S  B      
+TTTLTTTLTTTTTTTTT
+      BL        T
+B      L        T
+TTTTTT LLLLLLLB T
+      LL        T
+TTTTTT L        T
+       L        T
+C B S  L  D     T
+TTTTTTTTTTTTTTTTT

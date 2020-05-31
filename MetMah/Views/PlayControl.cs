@@ -142,36 +142,6 @@ namespace MetMah.Views
             e.Graphics.DrawString(scale, font, brushes, 1030, 4);
             e.Graphics.DrawString("Шкала терпения:", font, brushes, 770, 5);
 
-
-
-            //var scale = game.PatienceScale > 0 ? game.PatienceScale.ToString() : "0";
-            //e.Graphics.DrawString(scale, new Font("Arial", 24), brushes, 200, 4);
-            //e.Graphics.DrawString("Шкала терпения:", font, brushes, 20, 10);
-
-            //Bitmap bitmap = null;
-            //if (game.NumberPlayer == 0)
-            //    bitmap = bitmaps["SnakeMini.png"];
-
-            //if (game.NumberPlayer == 1)
-            //    bitmap = bitmaps["IgnorMini.png"];
-
-            //if (game.NumberPlayer == 3)
-            //    bitmap = bitmaps["DeviceMini.png"];
-
-            //if (bitmap != null)
-            //{
-            //    e.Graphics.DrawImage(bitmap, progressBar.Location.X + progressBar.Size.Width + 30, 6);
-
-            //    e.Graphics.DrawString("x " + game.CurrentLevel.NumberBeer.ToString(), new Font("Arial", 24),
-            //        brushes, progressBar.Location.X + progressBar.Size.Width + 30 + 33, 6);
-            //}
-
-            //var str = "Осталось собрать:";
-            //e.Graphics.DrawString(str, font,
-            //    brushes, progressBar.Location.X + progressBar.Size.Width + 30 + 33 + 80, 10);
-            //e.Graphics.DrawString(game.CurrentLevel.CountBeer.ToString(), new Font("Arial", 24),
-            //    brushes, progressBar.Location.X + progressBar.Size.Width + 30 + 33 + 30 + 250, 7);
-
             progressBar.Value = game.PatienceScale > 0 ?
                 game.HeightCurrentLevel * game.WidthCurrentLevel - game.PatienceScale : 0;
         }
@@ -198,6 +168,8 @@ namespace MetMah.Views
 
             if (creature is Student)
             {
+                if (creature.GetStatus() == Status.Inactive)
+                    return "StudentInactive.png";
                 if (DeltaX == -1)
                     return "Student.Left.png";
                 return "Student.Right.png";
@@ -214,6 +186,8 @@ namespace MetMah.Views
 
             if (creature is CleverStudent)
             {
+                if (creature.GetStatus() == Status.Inactive)
+                    return "StudentInactive.png";
                 if (DeltaX == -1)
                     return "CleverStudentLeft.png";
                 return "CleverStudentRight.png";

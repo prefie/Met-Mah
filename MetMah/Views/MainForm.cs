@@ -36,8 +36,8 @@ namespace MetMah.Views
 
         protected override void OnLoad(EventArgs e)
         {
-            MinimumSize = new Size(50 * 28, 50 * 14 + 39);
-            MaximumSize = new Size(50 * 28, 50 * 14 + 39);
+            MinimumSize = new Size(50 * 28 + 15, 50 * 14 + 39);
+            MaximumSize = new Size(50 * 28 + 15, 50 * 14 + 39);
             base.OnLoad(e);
             Text = "Escape from MetMah";
             DoubleBuffered = true;

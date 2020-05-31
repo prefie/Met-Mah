@@ -1,2 +1,6 @@
 P     S      B  D
+LLLLLLLLLLLLLLLLL
+  L   L   L B L  
+  L   L   LLLLL  
+C LB  L S L      
 TTTTTTTTTTTTTTTTT

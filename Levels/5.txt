@@ -1,0 +1,13 @@
+                            
+ P   B        C             
+TTTTTTTTTTTTTTTTTTTTTTTTT   
+                            
+   B C          S           
+TTTTTTTTTLLLLLLLLLLTTTTTTTTT
+   B S        L             
+ LTTTTL       L   B  S  S   
+ L    TTTTTTTTTTTTTTTTTTTTTT
+ L       B    B             
+ TLTLTLTLTLTLTLTLTLTLTLTLTLT
+D        C S   SS C   S  C  
+TTTTTTTTTTTTTTTTTTTTTTTTTTTT

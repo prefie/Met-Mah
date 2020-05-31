@@ -4,10 +4,10 @@ TTTLTTTTL  TTTLTT     L  TTT
    L S  LLB   L       L  TTT
 TTTTTTTTLTTTTTTTTTTTTLL  TTT
         L            TTTTTTT
-      S L S            B TTT
+      S L S            BCTTT
  B   LTTTTTTTTTTTTTTTTTTTTTT
 TTTLTT                      
    LTTTTTTTTTTTTTTTTTTTTTTTT
    L                        
-                       BBB D
+S              C       BBBCD
 TTTTTTTTTTTTTTTTTTTTTTTTTTTT
