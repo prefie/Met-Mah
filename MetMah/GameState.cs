@@ -94,7 +94,7 @@ namespace MetMah
             }
             if (IsDialogueActivated)
             {
-                PatienceScale -= 3;
+                PatienceScale -= HeightCurrentLevel / 2 - 1;
                 var index = (int)CurrentLevel.KeyPressed - 49;
                 if (index < 0 || index >= CurrentDialogue.CountAnswers)
                     return;

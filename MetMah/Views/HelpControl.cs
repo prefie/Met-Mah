@@ -54,7 +54,7 @@ namespace MetMah.Views
 
 
             buttonDescription.Location = new Point((ClientSize.Width - buttonDescription.Size.Width) / 2,
-                (ClientSize.Height - buttonDescription.Size.Height) / 2 - 60);
+                (ClientSize.Height - buttonDescription.Size.Height) / 2 - 100);
             buttonRules1.Location = new Point(buttonDescription.Location.X,
                 buttonDescription.Location.Y + 50);
             buttonControl.Location = new Point(buttonRules1.Location.X,
