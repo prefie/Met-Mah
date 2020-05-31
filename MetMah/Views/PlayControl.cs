@@ -27,8 +27,8 @@ namespace MetMah.Views
             pressedKeys = new HashSet<Keys>();
             progressBar = new ProgressBar
             {
-                Location = new Point(200, 6),
-                Size = new Size(150, 20),
+                Location = new Point(1100, 10),
+                Size = new Size(250, 25),
                 Style = ProgressBarStyle.Continuous
             };
             Controls.Add(progressBar);
@@ -106,9 +106,72 @@ namespace MetMah.Views
                 e.Graphics.DrawImage(bitmaps[GetImageFileName(a.Creature, a.Command.DeltaX)], a.Location);
             e.Graphics.ResetTransform();
 
+            var font = new Font("Arial", 24);
+            var brushes = Brushes.Black;
+
+            //Level
+            e.Graphics.DrawString("Level: " + (game.IndexCurrentLevel + 1) + " / " + 6, font, brushes, 20, 5);
+
+            //Ability
+            Bitmap bitmap = null;
+            if (game.NumberPlayer == 0)
+                bitmap = bitmaps["SnakeMini.png"];
+
+            if (game.NumberPlayer == 1)
+                bitmap = bitmaps["IgnorMini.png"];
+
+            if (game.NumberPlayer == 3)
+                bitmap = bitmaps["DeviceMini.png"];
+
+            if (bitmap != null)
+            {
+                e.Graphics.DrawImage(bitmap, 250, 5);
+
+                e.Graphics.DrawString("x " + game.CurrentLevel.NumberBeer.ToString(), font,
+                    brushes, 290, 5);
+            }
+
+            //Beer
+            e.Graphics.DrawString("Осталось собрать: ", font,
+                brushes, 400, 5);
+            e.Graphics.DrawString(game.CurrentLevel.CountBeer.ToString(), font,
+                brushes, 690, 5);
+
+            //Scale
             var scale = game.PatienceScale > 0 ? game.PatienceScale.ToString() : "0";
-            e.Graphics.DrawString(scale, new Font("Arial", 16), Brushes.Green, 150, 4);
-            e.Graphics.DrawString("Шкала терпения:", new Font("Arial", 12), Brushes.Green, 20, 6);
+            e.Graphics.DrawString(scale, font, brushes, 1030, 4);
+            e.Graphics.DrawString("Шкала терпения:", font, brushes, 770, 5);
+
+
+
+            //var scale = game.PatienceScale > 0 ? game.PatienceScale.ToString() : "0";
+            //e.Graphics.DrawString(scale, new Font("Arial", 24), brushes, 200, 4);
+            //e.Graphics.DrawString("Шкала терпения:", font, brushes, 20, 10);
+
+            //Bitmap bitmap = null;
+            //if (game.NumberPlayer == 0)
+            //    bitmap = bitmaps["SnakeMini.png"];
+
+            //if (game.NumberPlayer == 1)
+            //    bitmap = bitmaps["IgnorMini.png"];
+
+            //if (game.NumberPlayer == 3)
+            //    bitmap = bitmaps["DeviceMini.png"];
+
+            //if (bitmap != null)
+            //{
+            //    e.Graphics.DrawImage(bitmap, progressBar.Location.X + progressBar.Size.Width + 30, 6);
+
+            //    e.Graphics.DrawString("x " + game.CurrentLevel.NumberBeer.ToString(), new Font("Arial", 24),
+            //        brushes, progressBar.Location.X + progressBar.Size.Width + 30 + 33, 6);
+            //}
+
+            //var str = "Осталось собрать:";
+            //e.Graphics.DrawString(str, font,
+            //    brushes, progressBar.Location.X + progressBar.Size.Width + 30 + 33 + 80, 10);
+            //e.Graphics.DrawString(game.CurrentLevel.CountBeer.ToString(), new Font("Arial", 24),
+            //    brushes, progressBar.Location.X + progressBar.Size.Width + 30 + 33 + 30 + 250, 7);
+
             progressBar.Value = game.PatienceScale > 0 ?
                 game.HeightCurrentLevel * game.WidthCurrentLevel - game.PatienceScale : 0;
         }

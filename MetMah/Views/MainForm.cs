@@ -115,6 +115,7 @@ namespace MetMah.Views
         {
             HideScreens();
             playControl.Configure(choiceControl.PlayerName);
+            playControl.Focus();
             playControl.Show();
         }
 

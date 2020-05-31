@@ -14,7 +14,7 @@ namespace MetMah.Creature
 
         public Device()
         {
-            LifeTime = 10;
+            LifeTime = 15;
             Students = new List<ICreature>();
         }
 

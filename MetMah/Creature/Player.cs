@@ -18,6 +18,8 @@ namespace MetMah.Creature
 
         public Move Act(Level level, int x, int y)
         {
+            level.NumberBeer = numberBeer;
+
             if (PlayerNumber == 1 && timeIgnor > 0)
             {
                 timeIgnor -= 1;
@@ -37,6 +39,7 @@ namespace MetMah.Creature
                 {
                     Status = Status.Inactive;
                     timeIgnor = 15;
+                    numberBeer -= 1;
                 }
 
                 if (PlayerNumber == 3 && numberBeer > 0 && !level.CheckCreature(x, y, typeof(Device)))

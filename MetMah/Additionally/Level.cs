@@ -15,6 +15,7 @@ namespace MetMah.Additionally
         public Keys KeyPressed;
         public readonly string TextInitiallyMap;
         public int CountBeer { get; set; }
+        public int NumberBeer { get; set; }
 
         public Level(string map, int numberPlayer)
         {

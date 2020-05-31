@@ -23,7 +23,7 @@ namespace MetMah
         public int HeightCurrentLevel => CurrentLevel.Height;
         public GameStage Stage { get; private set; }
         private bool changeLevel;
-        private int numberPlayer;
+        public int NumberPlayer { get; private set; }
 
         public event Action<GameStage> StageChanged;
 
@@ -42,7 +42,7 @@ namespace MetMah
         }
 
         public void ChoiceCharacter() => ChangeStage(GameStage.ChoiceCharacter);
-        public void SetNumberPlayer(int numberPlayer) => this.numberPlayer = numberPlayer;
+        public void SetNumberPlayer(int numberPlayer) => this.NumberPlayer = numberPlayer;
 
         public void Start()
         {
@@ -213,7 +213,7 @@ namespace MetMah
             foreach (var e in pathLevels.GetFiles("*.txt"))
             {
                 var levelString = e.OpenText().ReadToEnd();
-                levels.Add(new Level(levelString, numberPlayer));
+                levels.Add(new Level(levelString, NumberPlayer));
             }
             var random = new Random();
             Levels = levels.OrderBy(x => random.Next()).Take(2).ToArray();
