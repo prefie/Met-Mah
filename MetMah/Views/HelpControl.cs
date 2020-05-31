@@ -18,7 +18,7 @@ namespace MetMah.Views
         public void Configure()
         {
             Dock = DockStyle.Fill;
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Help.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Help.png");
 
             var font = new Font("Arial", 16);
 
@@ -109,7 +109,7 @@ namespace MetMah.Views
         private void ButtonDescription_Click(object sender, EventArgs e)
         {
             HideControls();
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Description.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Description.png");
             buttonBack.Location = new Point((ClientSize.Width - buttonDescription.Size.Width) / 2,
                 ClientSize.Height - 100);
             Controls.Add(buttonBack);
@@ -119,7 +119,7 @@ namespace MetMah.Views
         private void ButtonRules1_Click(object sender, EventArgs e)
         {
             HideControls();
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Rules1.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Rules1.png");
             buttonBack.Location = new Point((ClientSize.Width - buttonDescription.Size.Width) / 2,
                 ClientSize.Height - 100);
             buttonRules2.Location = new Point(buttonBack.Location.X,
@@ -134,7 +134,7 @@ namespace MetMah.Views
         {
             HideControls();
             Controls.Remove(buttonRules2);
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Rules2.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Rules2.png");
             buttonBack.Location = new Point((ClientSize.Width - buttonDescription.Size.Width) / 2,
                 ClientSize.Height - 100);
             Controls.Add(buttonBack);
@@ -144,7 +144,7 @@ namespace MetMah.Views
         private void ButtonControl_Click(object sender, EventArgs e)
         {
             HideControls();
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Control.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Control.png");
             buttonBack.Location = new Point((ClientSize.Width - buttonControl.Size.Width) / 2,
                 ClientSize.Height - 100);
             Controls.Add(buttonBack);
@@ -154,7 +154,7 @@ namespace MetMah.Views
         private void ButtonCharacters_Click(object sender, EventArgs e)
         {
             HideControls();
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Characters.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Characters.png");
             buttonBack.Location = new Point((ClientSize.Width - buttonDescription.Size.Width) / 2,
                 ClientSize.Height - 100);
             Controls.Add(buttonBack);
@@ -164,7 +164,7 @@ namespace MetMah.Views
         private void ButtonAbilities_Click(object sender, EventArgs e)
         {
             HideControls();
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Abilities.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Abilities.png");
             buttonBack.Location = new Point((ClientSize.Width - buttonDescription.Size.Width) / 2,
                 ClientSize.Height - 100);
             Controls.Add(buttonBack);
@@ -179,7 +179,7 @@ namespace MetMah.Views
 
         private void Return(object sender, EventArgs e)
         {
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Help.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Help.png");
             buttonDescription.Show();
             buttonRules1.Show();
             buttonControl.Show();

@@ -28,9 +28,9 @@ namespace MetMah.Views
             buttonExit.Font = font;
 
             if (game.PatienceScale <= 0)
-                BackgroundImage = Image.FromFile(@"Images\Backgrounds\FinishLose.png");
+                BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\FinishLose.png");
             else
-                BackgroundImage = Image.FromFile(@"Images\Backgrounds\FinishWin.png");
+                BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\FinishWin.png");
 
             buttonMenu.Location = new Point((Size.Width - buttonMenu.Size.Width) / 2,
                 (Size.Height - buttonMenu.Size.Height) / 2 + 30);

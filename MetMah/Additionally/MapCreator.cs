@@ -63,7 +63,7 @@ namespace MetMah.Additionally
         private static List<Dialogue> FillDialogues()
         {
             var listDialogues = new List<Dialogue>();
-            var pathDialogues = new DirectoryInfo(@"Dialogues");
+            var pathDialogues = new DirectoryInfo(@"Resources\Dialogues");
             foreach (var e in pathDialogues.GetFiles("*.txt"))
             {
                 var dialogueString = e.OpenText();

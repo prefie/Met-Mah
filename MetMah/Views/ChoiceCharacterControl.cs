@@ -20,10 +20,10 @@ namespace MetMah.Views
                 50 * 28,
                 50 * 14);
 
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Choice.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Choice.png");
             pictures = new List<PictureBox>();
 
-            var imagesDirectory = new DirectoryInfo(@"Images\ChoiceCharacter");
+            var imagesDirectory = new DirectoryInfo(@"Resources\Images\ChoiceCharacter");
             var files = imagesDirectory.GetFiles("*Character.png");
             foreach (var e in files)
             {

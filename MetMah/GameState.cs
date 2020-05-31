@@ -94,7 +94,7 @@ namespace MetMah
             }
             if (IsDialogueActivated)
             {
-                PatienceScale -= HeightCurrentLevel / 2 - 1;
+                PatienceScale -= HeightCurrentLevel / 2 - 2;
                 var index = (int)CurrentLevel.KeyPressed - 49;
                 if (index < 0 || index >= CurrentDialogue.CountAnswers)
                     return;
@@ -106,7 +106,7 @@ namespace MetMah
                 }
                 else
                 {
-                    PatienceScale -= 15;
+                    PatienceScale -= 10;
                     SetKeyPressed(Keys.None);
                 }
                 return;
@@ -209,7 +209,7 @@ namespace MetMah
         public void Initialize()
         {
             var levels = new List<Level>();
-            var pathLevels = new DirectoryInfo(@"Levels");
+            var pathLevels = new DirectoryInfo(@"Resources\Levels");
             foreach (var e in pathLevels.GetFiles("*.txt"))
             {
                 var levelString = e.OpenText().ReadToEnd();

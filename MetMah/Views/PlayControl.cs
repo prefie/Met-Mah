@@ -34,9 +34,9 @@ namespace MetMah.Views
             Controls.Add(progressBar);
 
             PreviewKeyDown += NewPreviewKeyDown;
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\LightBackground.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\LightBackground.png");
             BackgroundImageLayout = ImageLayout.Center;
-            var imagesDirectory = new DirectoryInfo(@"Images\Creatures");
+            var imagesDirectory = new DirectoryInfo(@"Resources\Images\Creatures");
             foreach (var e in imagesDirectory.GetFiles("*.png"))
                 bitmaps[e.Name] = (Bitmap)Image.FromFile(e.FullName);
 

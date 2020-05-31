@@ -30,7 +30,7 @@ namespace MetMah.Views
             buttonExit.BackColor = Color.LightGray;
             buttonExit.Font = font;
 
-            BackgroundImage = Image.FromFile(@"Images\Backgrounds\Background.png");
+            BackgroundImage = Image.FromFile(@"Resources\Images\Backgrounds\Background.png");
 
             buttonPlay.Location = new Point((ClientSize.Width - buttonPlay.Size.Width) / 2,
                 (ClientSize.Height - buttonPlay.Size.Height) / 2 + 30);
@@ -46,7 +46,7 @@ namespace MetMah.Views
             picture = new PictureBox
             {
                 Location = new Point(buttonExit.Location.X - 60, buttonExit.Location.Y),
-                Image = Image.FromFile(@"Images\Backgrounds\Question1.png"),
+                Image = Image.FromFile(@"Resources\Images\Backgrounds\Question1.png"),
                 Size = new Size(45, 45),
                 SizeMode = PictureBoxSizeMode.Normal
             };
@@ -54,9 +54,9 @@ namespace MetMah.Views
             picture.Click += PictureBox_Click;
 
             picture.MouseEnter +=
-                (sender, args) => picture.Image = Image.FromFile(@"Images\Backgrounds\Question2.png");
+                (sender, args) => picture.Image = Image.FromFile(@"Resources\Images\Backgrounds\Question2.png");
             picture.MouseLeave +=
-                (sender, args) => picture.Image = Image.FromFile(@"Images\Backgrounds\Question1.png");
+                (sender, args) => picture.Image = Image.FromFile(@"Resources\Images\Backgrounds\Question1.png");
             BackColor = Color.Transparent;
 
             Controls.Add(buttonPlay);
