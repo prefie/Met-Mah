@@ -106,7 +106,7 @@ namespace MetMah
                 }
                 else
                 {
-                    PatienceScale -= 10;
+                    PatienceScale -= 20;
                     SetKeyPressed(Keys.None);
                 }
                 return;
