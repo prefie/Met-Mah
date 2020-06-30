@@ -94,7 +94,7 @@ namespace MetMah
             }
             if (IsDialogueActivated)
             {
-                PatienceScale -= HeightCurrentLevel / 2 - 2;
+                PatienceScale -= 2;
                 var index = (int)CurrentLevel.KeyPressed - 49;
                 if (index < 0 || index >= CurrentDialogue.CountAnswers)
                     return;
@@ -106,7 +106,7 @@ namespace MetMah
                 }
                 else
                 {
-                    PatienceScale -= 10;
+                    PatienceScale -= 20;
                     SetKeyPressed(Keys.None);
                 }
                 return;

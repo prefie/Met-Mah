@@ -21,6 +21,8 @@ namespace MetMah.Views
             StartPosition = FormStartPosition.Manual;
             Location = new Point(5, 5);
 
+            MinimizeBox = false;
+
             game = new GameState();
             game.StageChanged += Game_OnStageChanged;
             startControl = new StartControl();
